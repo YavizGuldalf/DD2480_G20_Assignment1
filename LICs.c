@@ -1,4 +1,4 @@
-#include decide.h
+#include "decide.h"
 
 int LIC_2(){
     for(int i=0; i<NUMPOINTS-2; i++){
@@ -13,13 +13,17 @@ int LIC_2(){
         // Returns a number between -pi and pi (Whether the interval is closed, half-closed or open should be tested)
         double angle =  atan2(y1 - y2, x1 - x2) - atan2(y3 - y2, x3 - x2);
 
-        // Negative angle prototype, will check more thoroughly soon.
+        // Negative angles should be made positive
         if(angle < 0){
-            angle += PI;
+            angle = -angle;
         }
 
-        // if(angle < PI - PARAMETERS.EPSILON)
+        if(angle < PI - PARAMETERS.EPSILON){
+            return 1;
+        } else if(angle > PI + PARAMETERS.EPSILON){
+            return 1;
+        }
 
     }
-    return false;
+    return 0;
 }

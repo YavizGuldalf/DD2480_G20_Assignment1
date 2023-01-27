@@ -1,6 +1,7 @@
 #include "decide.h"
+#include <stdbool.h>
 
-int LIC_2(){
+boolean LIC_2(){
     for(int i=0; i<NUMPOINTS-2; i++){
         double x1 = X[i];
         double y1 = Y[i];
@@ -18,12 +19,12 @@ int LIC_2(){
             angle = -angle;
         }
 
-        if(angle < PI - PARAMETERS.EPSILON){
-            return 1;
-        } else if(angle > PI + PARAMETERS.EPSILON){
-            return 1;
+        if(DOUBLECOMPARE(angle, PI - PARAMETERS.EPSILON) == LT){
+            return true;
+        } else if(DOUBLECOMPARE(angle, PI + PARAMETERS.EPSILON) == GT){
+            return true;
         }
 
     }
-    return 0;
+    return false;
 }

@@ -8,19 +8,19 @@ static const double PI = 3.1415926535;
 typedef enum {NOTUSED=777, ORR, ANDD} CONNECTORS;
 
 //pointer to an array of 100 doubles
-typedef double ∗COORDINATE;
+typedef double *COORDINATE;
 
 //pointer to a 2−D array of [15,15] CONNECTORS
-typedef CONNECTORS ∗∗CMATRIX;
+typedef CONNECTORS **CMATRIX;
 
 //always in the range [0..1]
 typedef int boolean;
 
 //pointer to a 2−D array of [15,15] booleans
-typedef boolean ∗∗BMATRIX;
+typedef boolean **BMATRIX;
 
 //pointer to an array of 15 booleans 
-typedef boolean ∗VECTOR;
+typedef boolean *VECTOR;
 
 typedef enum {LT=1111, EQ, GT} COMPTYPE;
 
@@ -45,12 +45,12 @@ typedef struct {
  double LENGTH2; //Maximum length in LIC 12
  double RADIUS2; //Maximum radius in LIC 13
  double AREA2; //Maximum area in LIC 14
- } PARAMETERST;
+ } PARAMETERS_T;
 
  //////////// global variable declarations ////////////
  
  PARAMETERS_T PARAMETERS;
- static PARAMETERST PARAMETERS2;
+ static PARAMETERS_T PARAMETERS2;
  
  //X coordinates of data points 
  COORDINATE X;
@@ -86,11 +86,11 @@ typedef struct {
  
  //compares floating point numbers −− see Nonfunctional Requirements 
  static inline 
- COMPTYPE DOUBLECOMPARE  (doubleA, 
- doubleB)
+ COMPTYPE DOUBLECOMPARE  (double A, 
+ double B)
  {
-    if(fabs(A−B) < 0.000001) return EQ;
-    if(A<B) returnLT;
+    if(fabs(A - B) < 0.000001) return EQ;
+    if(A < B) return LT;
     return GT;
 }
 

@@ -48,6 +48,12 @@ boolean check_lic_2(void){
         double x3 = X[i+2];
         double y3 = Y[i+2];
 
+        if((x1 == x2) && (y1 == y2)){
+            continue;
+        } else if((x3 == x2) && (y3 == y2)){
+            continue;
+        }
+
         // Method inspired by https://stackoverflow.com/a/31334882/19188850
         // Returns a number between -pi and pi (Whether the interval is closed, half-closed or open should be tested)
         double angle =  atan2(y1 - y2, x1 - x2) - atan2(y3 - y2, x3 - x2);

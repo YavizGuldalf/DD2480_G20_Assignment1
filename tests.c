@@ -4,6 +4,7 @@
 #include <stdbool.h>
 
 boolean check_lic_0(void);
+boolean check_lic_7(void);
 
 int tests_run = 0;
 
@@ -44,6 +45,31 @@ static char * test_lic0_invalid(){
     return 0;
 }
 
+static char * test_lic7_positive(){
+    NUMPOINTS = 7;
+    PARAMETERS.LENGTH1 = 13;
+    PARAMETERS.KPTS = 4;
+    double local_X[7] = {1,2,3,4,5,6,7};
+    X = local_X;
+    double local_Y[7] = {1,2,4,8,10,13,15};
+    Y = local_Y;
+
+    mu_assert("The positive test failed for lic7!", check_lic_7() == true);
+    return 0;
+}
+
+static char * test_lic7_negative(){
+    NUMPOINTS = 7;
+    PARAMETERS.LENGTH1 = 13;
+    PARAMETERS.KPTS = 4;
+    double local_X[7] = {1,2,3,4,5,6,7};
+    X = local_X;
+    double local_Y[7] = {1,2,4,8,10,13,14};
+    Y = local_Y;
+
+    mu_assert("The positive test failed for lic7!", check_lic_7() == true);
+    return 0;
+}
 
 static char * all_tests() {
     mu_run_test(test_lic0_negative);
@@ -57,8 +83,15 @@ static char * current_tests() {
     return 0;
 }
 
+static char * lic7_tests(){
+    mu_run_test(test_lic7_negative);
+    mu_run_test(test_lic7_positive);
+    return 0;
+}
+
+
 int main(int argc, char **argv) {
-    char *result = all_tests();
+    char *result = lic7_tests();
     if (result != 0) {
         printf("%s\n", result);
     }

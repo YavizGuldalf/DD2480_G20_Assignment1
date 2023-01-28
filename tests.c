@@ -71,11 +71,26 @@ static char * test_lic7_negative(){
     return 0;
 }
 
+static char * test_lic7_invalid(){
+    NUMPOINTS = 5;
+    PARAMETERS.LENGTH1 = 13;
+    PARAMETERS.KPTS = 5;
+    double local_X[7] = {1,2,3,4,5,6,7};
+    X = local_X;
+    double local_Y[7] = {1,2,4,8,10,13,14};
+    Y = local_Y;
+
+    mu_assert("The invalid test failed for lic7!", check_lic_7() == false);
+    return 0;
+}
 
 static char * all_tests() {
     mu_run_test(test_lic0_negative);
     mu_run_test(test_lic0_positive);
     mu_run_test(test_lic0_invalid);
+    mu_run_test(test_lic7_negative);
+    mu_run_test(test_lic7_positive);
+    mu_run_test(test_lic7_invalid);
     return 0;
 }
 
@@ -87,6 +102,7 @@ static char * current_tests() {
 static char * lic7_tests(){
     mu_run_test(test_lic7_negative);
     mu_run_test(test_lic7_positive);
+    mu_run_test(test_lic7_invalid);
     return 0;
 }
 

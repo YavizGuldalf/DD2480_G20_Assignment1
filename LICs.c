@@ -107,9 +107,9 @@ boolean check_lic_7(void){
 * @return The distance between the points.
 */
 double distance_by_index(int p1Index, int p2Index){
-    x1 = X[p1Index];
-    x2 = X[p2Index];
-    y1 = Y[p1Index];
-    y2 = Y[p2Index];
+    int x1 = X[p1Index];
+    int x2 = X[p2Index];
+    int y1 = Y[p1Index];
+    int y2 = Y[p2Index];
     return sqrt((x2-x1)*(x2-x1)+(y2-y1)*(y2-y1));
 }

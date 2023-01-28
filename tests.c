@@ -83,7 +83,7 @@ static char * test_lic5_invalid(){
 static char * all_tests() {
     mu_run_test(test_lic0_negative);
     mu_run_test(test_lic0_positive);
-    //mu_run_test(test_lic0_invalid);
+    mu_run_test(test_lic0_invalid);
     mu_run_test(test_lic5_positive);
     mu_run_test(test_lic5_negative);
     mu_run_test(test_lic5_invalid);

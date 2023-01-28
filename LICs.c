@@ -10,6 +10,10 @@
 * @return true if the condition is met, false otherwise.
 */
 boolean check_lic_0(void){
+    if(X == NULL || Y == NULL){
+        return false;
+    }
+
     int i;
     double x1,x2,y1,y2,d;
 
@@ -132,6 +136,9 @@ boolean check_lic_3 () {
 * @return true if the condition is met, false otherwise.
 */
 boolean check_lic_5(void){
+    if(X == NULL || Y == NULL){
+        return false;
+    }
     int i;
     double xi,xj;
 

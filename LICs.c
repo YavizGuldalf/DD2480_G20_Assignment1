@@ -71,3 +71,21 @@ boolean check_lic_2(void){
     }
     return false;
 }
+
+boolean check_lic_7(void){
+    // The below check also handles the case where NUMPOINTS < 3
+    if(1 > PARAMETERS.KPTS || PARAMETERS.KPTS > NUMPOINTS-2){
+        return false;
+    }
+
+    if(X == NULL || Y == NULL){
+        return false;
+    }
+
+    for(int p1Index = 0; p1Index < NUMPOINTS - PARAMETERS.KPTS; p1Index++){
+        int p2Index = p1Index + PARAMETERS.KPTS;
+        // calculate distance
+        // TODO
+    }
+
+}

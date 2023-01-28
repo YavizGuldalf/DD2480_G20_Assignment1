@@ -6,7 +6,7 @@ double triangle_area (double a, double b, double c) {
     return sqrt(s*((s-a)*(s-b)*(s-c)));
 }
 
-boolean LIC_3 (double area1) {
+boolean LIC_3 () {
     for(int i = 0; i < 97; i++) {
         double ab = distance(*(X+i), *(X+i+1), *(Y+i), *(Y+i+1));
         double bc = distance(*(X+i+1), *(X+i+2), *(Y+i+1), *(Y+i+2));
@@ -17,7 +17,7 @@ boolean LIC_3 (double area1) {
 
         double area = triangle_area(ab,ac,bc);
 
-        if(area > area1)
+        if(area > PARAMETERS.AREA1)
             return 1;
     }
 

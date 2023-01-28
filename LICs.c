@@ -71,3 +71,19 @@ boolean check_lic_2(void){
     }
     return false;
 }
+
+boolean check_lic_5(void){
+    int i;
+    double xi,xj;
+
+    for(i = 0; i < NUMPOINTS-1; i++){
+        xi = X[i];
+        xj = X[i+1];
+
+        //Use function for floating point comparision
+        if(DOUBLECOMPARE((xj-xi),0.0) == LT){
+            return true;
+        }
+    }
+    return false;
+}

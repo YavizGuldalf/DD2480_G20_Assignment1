@@ -35,10 +35,20 @@ static char * test_lic0_negative(){
     return 0;
 }
 
+static char * test_lic0_invalid(){
+    NUMPOINTS = 4;
+    PARAMETERS.LENGTH1 = 1;
+    X = NULL;
+    Y = NULL;
+    mu_assert("The invalid test failed!", check_lic_0() == false);
+    return 0;
+}
+
 
 static char * all_tests() {
     mu_run_test(test_lic0_negative);
     mu_run_test(test_lic0_positive);
+    mu_run_test(test_lic0_invalid);
     return 0;
 }
 

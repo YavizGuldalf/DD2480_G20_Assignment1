@@ -89,3 +89,20 @@ boolean check_lic_7(void){
     }
 
 }
+
+/*
+* Given the indexes for two points, returns the distance between the points
+* found at these indices. Doesn't check the validity of X and Y arrays so
+* that check must be done externally.
+* 
+* @param p1Index The index of the first point in the X and Y arrays.
+* @param p2Index The index of the second point in the the X and Y arrays.
+* @return The distance between the points.
+*/
+double distance(int p1Index, int p2Index){
+    x1 = X[p1Index];
+    x2 = X[p2Index];
+    y1 = Y[p1Index];
+    y2 = Y[p2Index];
+    return sqrt((x2-x1)*(x2-x1)+(y2-y1)*(y2-y1));
+}

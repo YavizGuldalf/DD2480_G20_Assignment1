@@ -72,6 +72,12 @@ boolean check_lic_2(void){
     return false;
 }
 
+/*
+* Checks the condition for LIC 5, which is if two consecutive data points
+* (X[i] and X[j], i = j-1) fulfil the condition X[j] - X[i] < 0
+*
+* @return true if the condition is met, false otherwise.
+*/
 boolean check_lic_5(void){
     int i;
     double xi,xj;

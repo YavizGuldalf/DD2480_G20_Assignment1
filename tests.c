@@ -67,9 +67,10 @@ static char * test_lic7_negative(){
     double local_Y[7] = {1,2,4,8,10,13,14};
     Y = local_Y;
 
-    mu_assert("The positive test failed for lic7!", check_lic_7() == true);
+    mu_assert("The negative test failed for lic7!", check_lic_7() == false);
     return 0;
 }
+
 
 static char * all_tests() {
     mu_run_test(test_lic0_negative);

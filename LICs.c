@@ -14,7 +14,7 @@ double largest_3 (double a, double b, double c) {
 }
 
 //LIC 1
-boolean LIC_1 (double radious) {
+boolean LIC_1 () {
     for(int i = 0; i < 97; i++) {
         double ab = distance(*(X+i), *(X+i+1), *(Y+i), *(Y+i+1));
         double bc = distance(*(X+i+1), *(X+i+2), *(Y+i+1), *(Y+i+2));
@@ -22,7 +22,7 @@ boolean LIC_1 (double radious) {
 
         double diameter = largest_3(ab, ac, ab);
 
-        if(diameter < radious*2)
+        if(diameter < PARAMETERS.RADIUS1*2)
             return 1;
     }
 

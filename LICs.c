@@ -14,16 +14,15 @@ boolean check_lic_0(void){
     int i;
     double x1,x2,y1,y2,d;
 
-    //Static versions for the variables are currently used
-    for(i = 0; i < NUMPOINTS2-1; i++){
-        x1 = X2[i];
-        x2 = X2[i+1];
-        y1 = Y2[i];
-        y2 = Y2[i+1];
+    for(i = 0; i < NUMPOINTS-1; i++){
+        x1 = X[i];
+        x2 = X[i+1];
+        y1 = Y[i];
+        y2 = Y[i+1];
         d = sqrt((x2-x1)*(x2-x1)+(y2-y1)*(y2-y1));
 
         //Use function for floating point comparision
-        if(DOUBLECOMPARE(d,PARAMETERS2.LENGTH1) == GT){
+        if(DOUBLECOMPARE(d,PARAMETERS.LENGTH1) == GT){
             return true;
         }
     }

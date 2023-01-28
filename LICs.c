@@ -84,10 +84,9 @@ boolean check_lic_7(void){
         return false;
     }
 
-    for(int p1Index = 0; p1Index < NUMPOINTS - PARAMETERS.KPTS; p1Index++){
-        int p2Index = p1Index + PARAMETERS.KPTS;
+    for(int p1Index = 0; p1Index + PARAMETERS.KPTS + 1 < NUMPOINTS; p1Index++){
+        int p2Index = p1Index + PARAMETERS.KPTS + 1;
         double distance = distance_by_index(p1Index, p2Index);
-
 
         if(DOUBLECOMPARE(distance, PARAMETERS.LENGTH1) == GT){
             return true;

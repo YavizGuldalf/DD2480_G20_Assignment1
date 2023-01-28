@@ -3,6 +3,8 @@
 #include <math.h>
 #include <stdbool.h>
 
+double distance_by_index(int, int);
+
 /*
 * Checks the condition for LIC 0, which is if two consecutive data points
 * have a distance greater than LENGTH1 between each other. The method
@@ -84,10 +86,15 @@ boolean check_lic_7(void){
 
     for(int p1Index = 0; p1Index < NUMPOINTS - PARAMETERS.KPTS; p1Index++){
         int p2Index = p1Index + PARAMETERS.KPTS;
-        // calculate distance
-        // TODO
+        double distance = distance_by_index(p1Index, p2Index);
+
+
+        if(DOUBLECOMPARE(distance, PARAMETERS.LENGTH1) == GT){
+            return true;
+        }
     }
 
+    return false;
 }
 
 /*

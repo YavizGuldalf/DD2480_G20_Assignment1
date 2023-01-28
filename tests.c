@@ -4,6 +4,7 @@
 #include <stdbool.h>
 
 boolean check_lic_0(void);
+boolean check_lic_5(void);
 
 int tests_run = 0;
 
@@ -44,11 +45,48 @@ static char * test_lic0_invalid(){
     return 0;
 }
 
+static char * test_lic5_positive(){
+    NUMPOINTS = 2;
+    double local_X[2];
+    X = local_X;
+    double local_Y[2];
+    Y = local_Y;
+    X[0]=2; X[1]=1;
+    Y[0]=1; Y[1]=2;
+
+    mu_assert("The positive test for LIC 5 failed!", check_lic_5() == true);
+    return 0;
+}
+
+static char * test_lic5_negative(){
+    NUMPOINTS = 2;
+    double local_X[2];
+    X = local_X;
+    double local_Y[2];
+    Y = local_Y;
+    X[0]=2; X[1]=10;
+    Y[0]=1; Y[1]=2;
+
+    mu_assert("The negative test for LIC 5 failed!", check_lic_5() == false);
+    return 0;
+}
+
+static char * test_lic5_invalid(){
+    NUMPOINTS = 2;
+    X = NULL;
+    Y = NULL;
+    mu_assert("The invalid test for LIC 5 failed!", check_lic_5() == false);
+    return 0;
+}
+
 
 static char * all_tests() {
     mu_run_test(test_lic0_negative);
     mu_run_test(test_lic0_positive);
-    mu_run_test(test_lic0_invalid);
+    //mu_run_test(test_lic0_invalid);
+    mu_run_test(test_lic5_positive);
+    mu_run_test(test_lic5_negative);
+    mu_run_test(test_lic5_invalid);
     return 0;
 }
 

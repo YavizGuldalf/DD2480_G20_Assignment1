@@ -99,7 +99,7 @@ boolean check_lic_7(void){
 * @param p2Index The index of the second point in the the X and Y arrays.
 * @return The distance between the points.
 */
-double distance(int p1Index, int p2Index){
+double distance_by_index(int p1Index, int p2Index){
     x1 = X[p1Index];
     x2 = X[p2Index];
     y1 = Y[p1Index];

@@ -131,9 +131,11 @@ boolean check_lic_4 (void) {
     PARAMETERS.QUADS < 1 || PARAMETERS.QUADS > 3)
         return false;
 
-    boolean quad_1 = 0, quad_2 = 0, quad_3 = 0, quad_4 = 0;
+    boolean quad_1, quad_2, quad_3, quad_4;
 
     for(int i = 0; i < NUMPOINTS - PARAMETERS.QPTS; i++) {
+        quad_1 = 0; quad_2 = 0; quad_3 = 0; quad_4 = 0;
+
         for(int j = 0; j < PARAMETERS.QPTS; j++) {
             if(*(X+j) >= 0 && *(Y+j) >= 0) {
                 quad_1 = 1;

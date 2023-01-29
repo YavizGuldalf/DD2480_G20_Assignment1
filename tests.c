@@ -236,9 +236,20 @@ static char * lic7_tests(){
 }
 
 
+/*
+*  Runs all of the tests of lic11 until an error is encountered or all the tests are passed.
+*  @returns 0 if all the tests pass, the error message of the first test that fails otherwise.
+*/
+static char * lic11_tests(void){
+    mu_run_test(test_lic11_negative);
+    mu_run_test(test_lic11_positive);
+    mu_run_test(test_lic11_invalid);
+    return 0;
+}
+
 
 int main(int argc, char **argv) {
-    char *result = lic7_tests();
+    char *result = lic11_tests();
     if (result != 0) {
         printf("%s\n", result);
     }

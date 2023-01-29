@@ -225,7 +225,6 @@ double distance_by_index(int p1Index, int p2Index){
     return sqrt((x2-x1)*(x2-x1)+(y2-y1)*(y2-y1));
 }
 
-
 boolean check_lic_9(void){
     if(1 > PARAMETERS.CPTS || 1 > PARAMETERS.DPTS || PARAMETERS.CPTS + PARAMETERS.DPTS > NUMPOINTS - 3){
         return false;
@@ -268,6 +267,45 @@ boolean check_lic_9(void){
     }
 }
 
+/*
+* Checks the condition for LIC 10, 
+* there exists at least one set of three data points separated by exactly E_PTS and F_PTS
+* consecutive intervening points, respectively, that are the vertices of a triangle with 
+* area greater than AREA1.
+*
+* @return true if the condition is met, false otherwise.
+*/
+boolean check_lic_10(void){
+    int E_PTS = PARAMETERS.EPTS;
+    int F_PTS = PARAMETERS.FPTS;
+	//condition is not met when NUMPOINTS < 5, or when E_PTS / F_PTS is 0 or lower
+	if(NUMPOINTS < 5 || E_PTS < 1 || F_PTS < 1){
+		return false;
+	}
+	if(E_PTS + F_PTS > NUMPOINTS-3){
+		return false;
+	}
+	
+	for(int index1 = 0; index1 < NUMPOINTS-(E_PTS+F_PTS+2); index1++){
+		int index2 = index1 + E_PTS + 1;
+		int index3 = index2 + F_PTS + 1;
+		
+		double ab = distance(X[index1], X[index2], Y[index1],Y[index2]);
+		double ac = distance(X[index1], X[index3], Y[index1],Y[index3]);
+		double bc = distance(X[index2], X[index3], Y[index2],Y[index3]);
+		
+		if (ab == 0 || ac == 0 || bc == 0){
+			return false;
+		}
+		
+		double area = triangle_area(ab,ac,bc);
+     
+		if(DOUBLECOMPARE(area, PARAMETERS.AREA1) == GT){
+			return true;
+		}
+	}
+    return false;
+}
 
 boolean check_lic_11(void){
     if(1 > PARAMETERS.GPTS || PARAMETERS.GPTS > NUMPOINTS - 2){

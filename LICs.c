@@ -251,5 +251,38 @@ boolean check_lic_11(void){
 * @return true if the condition is met, false otherwise.
 */
 boolean check_lic_13(void){
+    // Since it is the case with every other LIC, I will be assuming that A and B are both at least 1.
+    // I will further be assuming that RADIUS1 has to be bigger than 0.
+    if(1 > PARAMETERS.APTS || 1 > PARAMETERS.BPTS || NUMPOINTS < 5 || 0 >= PARAMETERS.RADIUS2 || 0 >= PARAMETERS.RADIUS1){
+        return false;
+    }
 
+    if(X == NULL || Y == NULL){
+        return false;
+    }
+
+    int cond1 = false;
+    int cond2 = false;
+
+    for(int i=0; i + PARAMETERS.APTS + 1 + PARAMETERS.BPTS + 1 < NUMPOINTS; i++){
+        int j = i + PARAMETERS.APTS + 1;
+        int k = j + PARAMETERS.BPTS + 1;
+
+        double dist1 = distance_by_index(i, j);
+        double dist2 = distance_by_index(j, k);
+        double dist3 = distance_by_index(i, k);
+
+        double largest_dist = largest_3(dist1, dist2, dist3);
+
+        if(largest_dist > PARAMETERS.RADIUS1 * 2){
+            cond1 = true;
+        }
+
+        if(largest_dist <= PARAMETERS.RADIUS2 * 2){
+            cond2 = true;
+        }
+
+    }
+
+    return cond1 && cond2;
 }

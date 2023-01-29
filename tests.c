@@ -165,10 +165,28 @@ static char * test_lic9_positive(){
     double local_Y[8] = {1,2,3,4,4,9,25,16};
     Y = local_Y;
 
-    mu_assert("The invalid test failed for lic9!", check_lic_9() == true);
+    mu_assert("The positive test failed for lic9!", check_lic_9() == true);
     return 0;
 }
 
+
+/*
+*  A test where check_lic_9 should return false
+* @return 0 if the test passes, an error message otherwise
+*/
+static char * test_lic9_negative(){
+    NUMPOINTS = 8;
+    PARAMETERS.CPTS= 1;
+    PARAMETERS.DPTS = 3;
+    PARAMETERS.EPSILON = 0.6981317008;
+    double local_X[8] = {1,2,3,4,2,3,5,4};
+    X = local_X;
+    double local_Y[8] = {1,2,3,4,4,9,25,12};
+    Y = local_Y;
+
+    mu_assert("The negative test failed for lic9!", check_lic_9() == false);
+    return 0;
+}
 
 /* This functions runs all the tests currently prepared for this revision.
 *  Any new tests that are implemented should be added to this function as well.

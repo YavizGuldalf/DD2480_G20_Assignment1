@@ -185,6 +185,32 @@ boolean check_lic_5(void){
     }
     return false;
 }
+/*
+There exists at least one set of N PTS consecutive data points such that at least one of the
+points lies a distance greater than DIST from the line joining the first and last of these N PTS
+points. If the first and last points of these N PTS are identical, then the calculated distance
+to compare with DIST will be the distance from the coincident point to all other points of
+the N PTS consecutive points. The condition is not met when NUMPOINTS < 3.
+(3 ≤ N PTS ≤ NUMPOINTS), (0 ≤ DIST)
+*/
+boolean check_lic_6(void){
+    if(X == NULL || Y == NULL){
+        return false;
+    }
+    int i;
+    double xi,xj;
+
+    for(i = 0; i < NUMPOINTS-1; i++){
+        xi = X[i];
+        xj = X[i+1];
+
+        //Use function for floating point comparision
+        if(DOUBLECOMPARE((xj-xi),0.0) == LT){
+            return true;
+        }
+    }
+    return false;
+}
 
 boolean check_lic_7(void){
     // The below check also handles the case where NUMPOINTS < 3
@@ -223,4 +249,37 @@ double distance_by_index(int p1Index, int p2Index){
     int y1 = Y[p1Index];
     int y2 = Y[p2Index];
     return sqrt((x2-x1)*(x2-x1)+(y2-y1)*(y2-y1));
+}
+
+boolean check_lic_10(void){
+    int E_PTS = PARAMETERS.EPTS;
+    int F_PTS = PARAMETERS.FPTS;
+	//condition is not met when NUMPOINTS < 3
+	if(NUMPOINTS < 5 || E_PTS < 1 || F_PTS < 1){
+		return false;
+	}
+	if(E_PTS + F_PTS > NUMPOINTS-3){
+		return false;
+	}
+	
+    double x1,x2,y1,y2,d;
+	
+	for(int index1 = 0; index1 < NUMPOINTS-(E_PTS+F_PTS+2); index1++){
+		int index2 = index1 + E_PTS + 1;
+		int index3 = index2 + F_PTS + 1;
+		
+		double ab = distance(X[index1], X[index2], Y[index1],Y[index2]);
+		double ac = distance(X[index1], X[index3], Y[index1],Y[index3]);
+		double bc = distance(X[index2], X[index3], Y[index2],Y[index3]);
+		
+		if (ab == 0 || ac == 0 || bc == 0){
+			return false;
+		}
+		
+		double area = triangle_area(ab,ac,bc);
+		
+		if(area > PARAMETERS.AREA1){
+			return true;
+		}
+	}
 }

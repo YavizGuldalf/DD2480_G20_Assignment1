@@ -258,7 +258,8 @@ static char * lic7_tests(){
 }
 
 int main(int argc, char **argv) {
-    char *result = lic5_tests();
+    //char *result = lic5_tests();
+    char *result = all_tests();
     if (result != 0) {
         printf("%s\n", result);
     }

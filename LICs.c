@@ -12,6 +12,10 @@ double distance_by_index(int, int);
 * @return true if the condition is met, false otherwise.
 */
 boolean check_lic_0(void){
+    if(X == NULL || Y == NULL){
+        return false;
+    }
+
     int i;
     double x1,x2,y1,y2,d;
 
@@ -154,6 +158,31 @@ boolean check_lic_4 (void) {
             return true;
     }
 
+    return false;
+}
+
+/*
+* Checks the condition for LIC 5, which is if two consecutive data points
+* (X[i] and X[j], i = j-1) fulfil the condition X[j] - X[i] < 0
+*
+* @return true if the condition is met, false otherwise.
+*/
+boolean check_lic_5(void){
+    if(X == NULL || Y == NULL){
+        return false;
+    }
+    int i;
+    double xi,xj;
+
+    for(i = 0; i < NUMPOINTS-1; i++){
+        xi = X[i];
+        xj = X[i+1];
+
+        //Use function for floating point comparision
+        if(DOUBLECOMPARE((xj-xi),0.0) == LT){
+            return true;
+        }
+    }
     return false;
 }
 

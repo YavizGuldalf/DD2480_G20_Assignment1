@@ -217,9 +217,9 @@ boolean check_lic_8(void){
     if(NUMPOINTS < 5)
         return false;
 
-    for(int i = 0; i + PARAMETERS.APTS + PARAMETERS.BPTS + 2 < NUMPOINTS; i++) {
-        int a = i + PARAMETERS.APTS + 1;
-        int b = a + PARAMETERS.BPTS + 1;
+    for(int i = 0; i + PARAMETERS.APTS + PARAMETERS.BPTS < NUMPOINTS - 3; i++) {
+        int a = i + PARAMETERS.APTS;
+        int b = a + PARAMETERS.BPTS;
 
         double x[3] = {*(X+i), *(X+a), *(X+b)};
         double y[3] = {*(Y+i), *(Y+a), *(Y+b)};
@@ -235,7 +235,7 @@ boolean check_lic_8(void){
 
         double diameter = largest_3(ab, ac, ab);
 
-        if(diameter < PARAMETERS.RADIUS1*2)
+        if(diameter > PARAMETERS.RADIUS1*2)
             return true;
     }
 

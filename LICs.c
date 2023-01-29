@@ -129,6 +129,36 @@ boolean check_lic_3 () {
     return 0;
 }
 
+//LIC 4
+boolean check_lic_4 (void) {
+    if(PARAMETERS.QPTS < 2 || PARAMETERS.QPTS > NUMPOINTS || 
+    PARAMETERS.QUADS < 1 || PARAMETERS.QUADS > 3)
+        return false;
+
+    boolean quad_1, quad_2, quad_3, quad_4;
+
+    for(int i = 0; i < NUMPOINTS - PARAMETERS.QPTS; i++) {
+        quad_1 = 0; quad_2 = 0; quad_3 = 0; quad_4 = 0;
+
+        for(int j = 0; j < PARAMETERS.QPTS; j++) {
+            if(*(X+j) >= 0 && *(Y+j) >= 0) {
+                quad_1 = 1;
+            } else if(*(X+j) > 0 && *(Y+j) < 0) {
+                quad_2 = 1;
+            } else if(*(X+j) < 0 && *(Y+j) > 0) {
+                quad_3 = 1;
+            } else {
+                quad_4 = 1;
+            }
+        }
+
+        if((quad_1 + quad_2 + quad_3 + quad_4) > PARAMETERS.QUADS)
+            return true;
+    }
+
+    return false;
+}
+
 /*
 * Checks the condition for LIC 5, which is if two consecutive data points
 * (X[i] and X[j], i = j-1) fulfil the condition X[j] - X[i] < 0

@@ -48,4 +48,5 @@ void free_PUM(void){
         free(PUM[i]);
     }
     free(PUM);
+    PUM_initialized = false;
 }

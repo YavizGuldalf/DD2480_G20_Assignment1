@@ -2,6 +2,8 @@
 #include <stdio.h>
 #include <stdbool.h>
 
+double distance_by_index(int, int);
+
 /*
 * Checks the condition for LIC 0, which is if two consecutive data points
 * have a distance greater than LENGTH1 between each other. The method
@@ -153,4 +155,43 @@ boolean check_lic_4 (void) {
     }
 
     return false;
+}
+
+boolean check_lic_7(void){
+    // The below check also handles the case where NUMPOINTS < 3
+    if(1 > PARAMETERS.KPTS || PARAMETERS.KPTS > NUMPOINTS-2){
+        return false;
+    }
+
+    if(X == NULL || Y == NULL){
+        return false;
+    }
+
+    for(int p1Index = 0; p1Index + PARAMETERS.KPTS + 1 < NUMPOINTS; p1Index++){
+        int p2Index = p1Index + PARAMETERS.KPTS + 1;
+        double distance = distance_by_index(p1Index, p2Index);
+
+        if(DOUBLECOMPARE(distance, PARAMETERS.LENGTH1) == GT){
+            return true;
+        }
+    }
+
+    return false;
+}
+
+/*
+* Given the indexes for two points, returns the distance between the points
+* found at these indices. Doesn't check the validity of X and Y arrays so
+* that check must be done externally.
+* 
+* @param p1Index The index of the first point in the X and Y arrays.
+* @param p2Index The index of the second point in the the X and Y arrays.
+* @return The distance between the points.
+*/
+double distance_by_index(int p1Index, int p2Index){
+    int x1 = X[p1Index];
+    int x2 = X[p2Index];
+    int y1 = Y[p1Index];
+    int y2 = Y[p2Index];
+    return sqrt((x2-x1)*(x2-x1)+(y2-y1)*(y2-y1));
 }

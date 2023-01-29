@@ -186,6 +186,46 @@ boolean check_lic_5(void){
     return false;
 }
 
+/*
+There exists at least one set of N PTS consecutive data points such that at least one of the
+points lies a distance greater than DIST from the line joining the first and last of these N PTS
+points. If the first and last points of these N PTS are identical, then the calculated distance
+to compare with DIST will be the distance from the coincident point to all other points of
+the N PTS consecutive points. The condition is not met when NUMPOINTS < 3.
+(3 ≤ N PTS ≤ NUMPOINTS), (0 ≤ DIST)
+*/
+boolean check_lic_6(void){
+    int N_PTS = PARAMETERS.NPTS;
+    if(NUMPOINTS < 3 || N_PTS < 3 || N_PTS > NUMPOINTS){
+        return false;
+    }
+
+    if(X == NULL || Y == NULL){
+        return false;
+    }
+
+    for(int i = 0; i < NUMPOINTS - N_PTS; i++){
+        double x_first = X[i];
+        double x_last = X[i+N_PTS];
+        double y_first = Y[i];
+        double y_last = Y[i+N_PTS];
+
+        for(int j = i+1; j < N_PTS; j++){
+            double distance = distance_to_line(X[j],Y[j],x_first,y_first,x_last,y_last);
+            if(DOUBLECOMPARE(distance,PARAMETERS.DIST) == GT){
+                return true;
+            }
+        }
+
+
+    }
+    return false;
+}
+
+double distance_to_line(double x0, double y0, double x1, double y1, double x2, double y2){
+    return fabs((x2-x1)*(y1-y0)-(x1-x0)*(y2-y1)) / distance(x1,x2,y1,y2);
+}
+
 boolean check_lic_7(void){
     // The below check also handles the case where NUMPOINTS < 3
     if(1 > PARAMETERS.KPTS || PARAMETERS.KPTS > NUMPOINTS-2){

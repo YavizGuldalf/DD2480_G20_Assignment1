@@ -245,6 +245,24 @@ static char * test_lic11_invalid(void){
     return 0;
 }
 
+/*
+*  A test where check_lic_13 should return true
+* @return 0 if the test passes, an error message otherwise
+*/
+static char * test_lic13_positive(void){
+    NUMPOINTS = 7;
+    PARAMETERS.APTS = 1;
+    PARAMETERS.BPTS = 1;
+    PARAMETERS.RADIUS1 = 2;
+    PARAMETERS.RADIUS2 = 3;
+    double local_X[7] = {1,2,3,4,5,6,8};
+    X = local_X;
+    double local_Y[7] = {1,2,3,4,5,13,14};
+    Y = local_Y;
+
+    mu_assert("The positive test failed for lic13!", check_lic_13() == true);
+    return 0;
+}
 
 
 /* This functions runs all the tests currently prepared for this revision.

@@ -233,7 +233,10 @@ boolean check_lic_9(void){
     if(X == NULL || Y == NULL){
         return false;
     }
-    
+    if(NUMPOINTS < 5){
+        return false;
+    }
+
     for(int i=0; i + PARAMETERS.CPTS + 1 + PARAMETERS.DPTS + 1 < NUMPOINTS; i++){
         int j = i + PARAMETERS.CPTS + 1;
         int k = j + PARAMETERS.DPTS + 1;

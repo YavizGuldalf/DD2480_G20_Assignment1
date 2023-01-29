@@ -188,12 +188,14 @@ boolean check_lic_5(void){
 }
 
 /*
-There exists at least one set of N PTS consecutive data points such that at least one of the
-points lies a distance greater than DIST from the line joining the first and last of these N PTS
-points. If the first and last points of these N PTS are identical, then the calculated distance
-to compare with DIST will be the distance from the coincident point to all other points of
-the N PTS consecutive points. The condition is not met when NUMPOINTS < 3.
-(3 ≤ N PTS ≤ NUMPOINTS), (0 ≤ DIST)
+* Checks the condition for LIC 6, which is if there is at least one set of  N_PTS consecutive 
+* data points so that one of these point is further than DIST away from the line that can be
+* created between the first and the last of the N_PTS points. 
+* If the first and last points of these N_PTS are identical, then the calculated distance
+* to compare with DIST will be the distance from this point to all other points.
+* The function uses the other function distance_to_line in order to calculate the distance.
+*
+* @return true if the condition is met, false otherwise.
 */
 boolean check_lic_6(void){
     int N_PTS = PARAMETERS.NPTS;
@@ -233,8 +235,21 @@ boolean check_lic_6(void){
     return false;
 }
 
+/*
+* Calculates the (shortest) distance from a point (x,y) to a line. It is calculated
+* from getting the perpendicular point on the line from the given point. The calculation
+* is derived from the equation for a triangle's area; A=(b*h)/2
+* https://en.wikipedia.org/wiki/Distance_from_a_point_to_a_line
+*
+* @param x0 x-coordinate of the point
+* @param y0 y-coordinate of the point
+* @param x1 x-coordinate for one of the points making the line
+* @param y1 y-coordinate for one of the points making the line
+* @param x2 x-coordinate for the other point making the line
+* @param y2 y-coordinate for the other point making the line
+* @return The distance between the point (x0,y0) and the line between (x1,y1) and (x2,y2)
+*/
 double distance_to_line(double x0, double y0, double x1, double y1, double x2, double y2){
-   // printf("%f %f , %f %f , %f %f\n",x0,y0,x1,y1,x2,y2);
     return fabs((x2-x1)*(y1-y0)-(x1-x0)*(y2-y1)) / distance(x1,x2,y1,y2);
 }
 

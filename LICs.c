@@ -3,6 +3,7 @@
 #include <stdbool.h>
 
 double distance_by_index(int, int);
+double distance_to_line(double,double,double,double,double,double);
 
 /*
 * Checks the condition for LIC 0, which is if two consecutive data points
@@ -204,25 +205,36 @@ boolean check_lic_6(void){
         return false;
     }
 
-    for(int i = 0; i < NUMPOINTS - N_PTS; i++){
+    for(int i = 0; i < NUMPOINTS - N_PTS+1; i++){
         double x_first = X[i];
-        double x_last = X[i+N_PTS];
+        double x_last = X[i+N_PTS-1];
         double y_first = Y[i];
-        double y_last = Y[i+N_PTS];
+        double y_last = Y[i+N_PTS-1];
+
+        boolean same_point = false;
+        if(x_first == x_last && y_first == y_last){
+            same_point = true;
+        }
 
         for(int j = i+1; j < N_PTS; j++){
-            double distance = distance_to_line(X[j],Y[j],x_first,y_first,x_last,y_last);
-            if(DOUBLECOMPARE(distance,PARAMETERS.DIST) == GT){
+            double dist;
+
+            if(same_point){
+                dist = distance(x_first,X[j],y_first,Y[j]);
+            } else{
+                dist = distance_to_line(X[j],Y[j],x_first,y_first,x_last,y_last);
+            }
+  
+            if(DOUBLECOMPARE(dist,PARAMETERS.DIST) == GT){
                 return true;
             }
         }
-
-
     }
     return false;
 }
 
 double distance_to_line(double x0, double y0, double x1, double y1, double x2, double y2){
+   // printf("%f %f , %f %f , %f %f\n",x0,y0,x1,y1,x2,y2);
     return fabs((x2-x1)*(y1-y0)-(x1-x0)*(y2-y1)) / distance(x1,x2,y1,y2);
 }
 

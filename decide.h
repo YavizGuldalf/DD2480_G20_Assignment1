@@ -68,6 +68,10 @@ typedef struct {
  CMATRIX LCM;
  static CMATRIX LCM2;
 
+ // Preliminary Unlocking Vector
+ VECTOR PUV;
+ static VECTOR PUV2;
+
  //Preliminary Unlocking Matrix
  BMATRIX PUM;
  static BMATRIX PUM2;

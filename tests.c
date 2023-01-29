@@ -284,6 +284,25 @@ static char * test_lic13_negative(void){
 }
 
 
+/*
+*  A test where check_lic_13 should return false with an invalid input
+* @return 0 if the test passes, an error message otherwise
+*/
+static char * test_lic13_invalid(void){
+    NUMPOINTS = 4;
+    PARAMETERS.APTS = 1;
+    PARAMETERS.BPTS = 1;
+    PARAMETERS.RADIUS1 = 2;
+    PARAMETERS.RADIUS2 = 2;
+    double local_X[7] = {1,2,3,4,5,6,8};
+    X = local_X;
+    double local_Y[7] = {1,2,3,4,5,13,14};
+    Y = local_Y;
+
+    mu_assert("The invalid test failed for lic13!", check_lic_13() == false);
+    return 0;
+}
+
 
 /* This functions runs all the tests currently prepared for this revision.
 *  Any new tests that are implemented should be added to this function as well.

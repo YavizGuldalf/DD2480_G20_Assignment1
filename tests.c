@@ -167,6 +167,22 @@ static char * test_lic11_positive(void){
     return 0;
 }
 
+/*
+*  A test where check_lic_11 should return false
+* @return 0 if the test passes, an error message otherwise
+*/
+static char * test_lic11_negative(void){
+    NUMPOINTS = 7;
+    PARAMETERS.GPTS = 2;
+    double local_X[7] = {1,2,3,4,5,6,8};
+    X = local_X;
+    double local_Y[7] = {1,2,4,8,10,13,14};
+    Y = local_Y;
+
+    mu_assert("The negative test failed for lic11!", check_lic_11() == false);
+    return 0;
+}
+
 
 
 

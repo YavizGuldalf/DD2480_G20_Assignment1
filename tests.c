@@ -318,6 +318,12 @@ static char * all_tests() {
     mu_run_test(test_lic7_negative);
     mu_run_test(test_lic7_positive);
     mu_run_test(test_lic7_invalid);
+    mu_run_test(test_lic11_negative);
+    mu_run_test(test_lic11_positive);
+    mu_run_test(test_lic11_invalid);
+    mu_run_test(test_lic13_negative);
+    mu_run_test(test_lic13_positive);
+    mu_run_test(test_lic13_invalid);
     
     return 0;
 }
@@ -377,8 +383,20 @@ static char * lic11_tests(void){
     return 0;
 }
 
+
+/*
+*  Runs all of the tests of lic13 until an error is encountered or all the tests are passed.
+*  @returns 0 if all the tests pass, the error message of the first test that fails otherwise.
+*/
+static char * lic13_tests(void){
+    mu_run_test(test_lic13_negative);
+    mu_run_test(test_lic13_positive);
+    mu_run_test(test_lic13_invalid);
+    return 0;
+}
+
 int main(int argc, char **argv) {
-    char *result = lic5_tests();
+    char *result = lic13_tests();
 
     if (result != 0) {
         printf("%s\n", result);

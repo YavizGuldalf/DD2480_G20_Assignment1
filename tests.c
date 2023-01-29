@@ -179,9 +179,9 @@ static char * test_lic9_negative(){
     PARAMETERS.CPTS= 1;
     PARAMETERS.DPTS = 3;
     PARAMETERS.EPSILON = 0.6981317008;
-    double local_X[8] = {1,2,3,4,2,3,5,4};
+    double local_X[8] = {1,2,3,4,2,3,5,5};
     X = local_X;
-    double local_Y[8] = {1,2,3,4,4,9,25,12};
+    double local_Y[8] = {1,2,3,4,4,9,25,8};
     Y = local_Y;
 
     mu_assert("The negative test failed for lic9!", check_lic_9() == false);

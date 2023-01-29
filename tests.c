@@ -147,6 +147,63 @@ static char * test_lic5_invalid(){
 }
 
 /*
+*  A test where check_lic_6 should return true
+*  The distance from point (2,3) is about 0.83205... to 
+*  the line between (1,3),(3,0).
+* @return 0 if the test passes, an error message otherwise
+*/
+static char * test_lic6_positive(){
+    NUMPOINTS = 3;
+    PARAMETERS.DIST = 0.83;
+    PARAMETERS.NPTS = 3;
+    double local_X[3] = {1,2,3};
+    X = local_X;
+    double local_Y[3] = {3,3,0};
+    Y = local_Y;
+
+    mu_assert("The positive test failed for lic6!", check_lic_6() == true);
+    return 0;
+}
+
+/*
+*  A test where check_lic_6 should return false
+* The distance from point (-5,0) is about 0.707... to 
+*  the line between (-2,-2),(-6,2).
+* @return 0 if the test passes, an error message otherwise
+*/
+static char * test_lic6_negative(){
+    NUMPOINTS = 3;
+    PARAMETERS.DIST = 1;
+    PARAMETERS.NPTS = 3;
+    double local_X[3] = {-2,-5,-6};
+    X = local_X;
+    double local_Y[3] = {-2,0,2};
+    Y = local_Y;
+
+    mu_assert("The negative test for LIC 6 failed!", check_lic_6() == false);
+    return 0;
+}
+
+/*
+*  A test where check_lic_6 should return false with an invalid input
+*  The invalid input in this case is that N_PTS > NUMPOINTS
+* The test would otherwise succeed, if N_PTS = 3
+* @return 0 if the test passes, an error message otherwise
+*/
+static char * test_lic6_invalid(){
+    NUMPOINTS = 3;
+    PARAMETERS.DIST = 0.83;
+    PARAMETERS.NPTS = 4;
+    double local_X[3] = {1,2,3};
+    X = local_X;
+    double local_Y[3] = {3,3,0};
+    Y = local_Y;
+
+    mu_assert("The invalid test for LIC 6 failed!", check_lic_6() == false);
+    return 0;
+}
+
+/*
 *  A test where check_lic_7 should return true
 * @return 0 if the test passes, an error message otherwise
 */
@@ -371,6 +428,9 @@ static char * all_tests() {
     mu_run_test(test_lic5_positive);
     mu_run_test(test_lic5_negative);
     mu_run_test(test_lic5_invalid);
+    mu_run_test(test_lic6_positive);
+    mu_run_test(test_lic6_negative);
+    mu_run_test(test_lic6_invalid);
     mu_run_test(test_lic7_negative);
     mu_run_test(test_lic7_positive);
     mu_run_test(test_lic7_invalid); 
@@ -407,13 +467,26 @@ static char * lic0_tests(){
 }
 
 /*
-*  Runs all of the tests of lic7 until an error is encountered or all the tests are passed.
+*  Runs all of the tests of lic5 until an error is encountered or all the tests are passed.
 *  @returns 0 if all the tests pass, the error message of the first test that fails otherwise.
 */
 static char * lic5_tests(){
     mu_run_test(test_lic5_negative);
     mu_run_test(test_lic5_positive);
     mu_run_test(test_lic5_invalid);
+
+    return 0;
+}
+
+/*
+*  Runs all of the tests of lic6 until an error is encountered or all the tests are passed.
+*  @returns 0 if all the tests pass, the error message of the first test that fails otherwise.
+*/
+static char * lic6_tests(){
+    mu_run_test(test_lic6_negative);
+    mu_run_test(test_lic6_positive);
+    mu_run_test(test_lic6_invalid);
+
     return 0;
 }
 
@@ -427,8 +500,6 @@ static char * lic7_tests(){
     mu_run_test(test_lic7_invalid);
     return 0;
 }
-
-
 
 /*
 *  Runs all of the tests of lic9 until an error is encountered or all the tests are passed.
@@ -464,8 +535,7 @@ static char * lic11_tests(void){
 }
 
 int main(int argc, char **argv) {
-    char *result = lic10_tests();
-   // char *result = all_tests();
+    char *result = lic6_tests();
     if (result != 0) {
         printf("%s\n", result);
     }

@@ -151,6 +151,25 @@ static char * test_lic7_invalid(){
     return 0;
 }
 
+/*
+*  A test where check_lic_11 should return true
+* @return 0 if the test passes, an error message otherwise
+*/
+static char * test_lic11_positive(void){
+    NUMPOINTS = 7;
+    PARAMETERS.GPTS = 2;
+    double local_X[7] = {1,2,3,4,5,6,3.8};
+    X = local_X;
+    double local_Y[7] = {1,2,4,8,10,13,14};
+    Y = local_Y;
+
+    mu_assert("The positive test failed for lic11!", check_lic_11() == true);
+    return 0;
+}
+
+
+
+
 /* This functions runs all the tests currently prepared for this revision.
 *  Any new tests that are implemented should be added to this function as well.
 *

@@ -512,6 +512,27 @@ static char * lic10_tests(){
 }
 
 /*
+*  Runs all of the tests of lic9 until an error is encountered or all the tests are passed.
+*  @returns 0 if all the tests pass, the error message of the first test that fails otherwise.
+*/
+static char * lic9_tests(){
+    mu_run_test(test_lic9_negative);
+    mu_run_test(test_lic9_positive);
+    mu_run_test(test_lic9_invalid);
+}
+
+/*
+*  Runs all of the tests of lic10 until an error is encountered or all the tests are passed.
+*  @returns 0 if all the tests pass, the error message of the first test that fails otherwise.
+*/
+static char * lic10_tests(){
+    mu_run_test(test_lic10_negative);
+    mu_run_test(test_lic10_positive);
+    mu_run_test(test_lic10_invalid);
+    return 0;
+}
+
+/*
 *  Runs all of the tests of lic11 until an error is encountered or all the tests are passed.
 *  @returns 0 if all the tests pass, the error message of the first test that fails otherwise.
 */

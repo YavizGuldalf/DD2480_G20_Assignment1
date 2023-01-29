@@ -262,8 +262,6 @@ boolean check_lic_10(void){
 		return false;
 	}
 	
-    double x1,x2,y1,y2,d;
-	
 	for(int index1 = 0; index1 < NUMPOINTS-(E_PTS+F_PTS+2); index1++){
 		int index2 = index1 + E_PTS + 1;
 		int index3 = index2 + F_PTS + 1;
@@ -277,9 +275,10 @@ boolean check_lic_10(void){
 		}
 		
 		double area = triangle_area(ab,ac,bc);
-		
-		if(area > PARAMETERS.AREA1){
+     
+		if(DOUBLECOMPARE(area, PARAMETERS.AREA1) == GT){
 			return true;
 		}
 	}
+    return false;
 }

@@ -22,9 +22,9 @@ void fill_FUV(void){
 
     for(int i=0; i < LIC_COUNT; i++){
         FUV[i] = true;
-        // A value in the FUV is false iff PUM[i] is 
+        // A value in the FUV is false iff PUV[i] is 
         // true and there is at least one false element in the PUM row
-        if(PUM[i] == true){
+        if(PUV[i] == true){
             for(int j=0; j < LIC_COUNT; j++){
                 FUV[i] = FUV[i] && PUM[i][j];
             }

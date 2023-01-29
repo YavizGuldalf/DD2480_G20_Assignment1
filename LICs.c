@@ -225,6 +225,48 @@ double distance_by_index(int p1Index, int p2Index){
     return sqrt((x2-x1)*(x2-x1)+(y2-y1)*(y2-y1));
 }
 
+boolean check_lic_9(void){
+    if(1 > PARAMETERS.CPTS || 1 > PARAMETERS.DPTS || PARAMETERS.CPTS + PARAMETERS.DPTS > NUMPOINTS - 3){
+        return false;
+    }
+    if(X == NULL || Y == NULL){
+        return false;
+    }
+    if(NUMPOINTS < 5){
+        return false;
+    }
+
+    for(int i=0; i + PARAMETERS.CPTS + 1 + PARAMETERS.DPTS + 1 < NUMPOINTS; i++){
+        int j = i + PARAMETERS.CPTS + 1;
+        int k = j + PARAMETERS.DPTS + 1;
+
+        double x1 = X[i]; double x2 = X[j]; double x3 = X[k];
+        double y1 = Y[i]; double y2 = Y[j]; double y3 = Y[k];
+
+        if((x1 == x2) && (y1 == y2)){
+            continue;
+        } else if((x3 == x2) && (y3 == y2)){
+            continue;
+        }
+
+        // Method inspired by https://stackoverflow.com/a/31334882/19188850
+        // Returns a number between -pi and pi (Whether the interval is closed, half-closed or open should be tested)
+        double angle =  atan2(y1 - y2, x1 - x2) - atan2(y3 - y2, x3 - x2);
+
+        if(angle < 0){
+            // This needs to be tested, might need to get replaced by `angle += 2*PI;`
+            angle = -angle;
+        }
+
+        if(DOUBLECOMPARE(angle, PI - PARAMETERS.EPSILON) == LT){
+            return true;
+        } else if(DOUBLECOMPARE(angle, PI + PARAMETERS.EPSILON) == GT){
+            return true;
+        }
+
+    }
+}
+
 /*
 * Checks the condition for LIC 10, 
 * there exists at least one set of three data points separated by exactly E_PTS and F_PTS
@@ -262,5 +304,18 @@ boolean check_lic_10(void){
 			return true;
 		}
 	}
+    return false;
+}
+
+boolean check_lic_11(void){
+    if(1 > PARAMETERS.GPTS || PARAMETERS.GPTS > NUMPOINTS - 2){
+        return false;
+    }
+    for(int p1Index=0; p1Index + PARAMETERS.GPTS + 1 < NUMPOINTS; p1Index++){
+        int p2Index = p1Index + PARAMETERS.GPTS + 1;
+        if(DOUBLECOMPARE(X[p2Index] - X[p1Index], 0.0) == LT){
+            return true;
+        }
+    }
     return false;
 }

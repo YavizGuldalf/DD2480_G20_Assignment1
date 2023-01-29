@@ -124,3 +124,16 @@ boolean check_lic_3 () {
 
     return 0;
 }
+
+boolean check_lic_11(void){
+    if(1 > PARAMETERS.GPTS || PARAMETERS.GPTS > NUMPOINTS - 2){
+        return false;
+    }
+    for(int p1Index=0; p1Index + PARAMETERS.GPTS + 1 < NUMPOINTS; p1Index++){
+        int p2Index = p1Index + PARAMETERS.GPTS + 1;
+        if(DOUBLECOMPARE(X[p2Index] - X[p1Index], 0.0) == LT){
+            return true;
+        }
+    }
+    return false;
+}

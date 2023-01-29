@@ -3,6 +3,7 @@
 #include <stdbool.h>
 
 double distance_by_index(int, int);
+double distance_to_line(double,double,double,double,double,double);
 
 /*
 * Checks the condition for LIC 0, which is if two consecutive data points
@@ -186,6 +187,72 @@ boolean check_lic_5(void){
     return false;
 }
 
+/*
+* Checks the condition for LIC 6, which is if there is at least one set of  N_PTS consecutive 
+* data points so that one of these point is further than DIST away from the line that can be
+* created between the first and the last of the N_PTS points. 
+* If the first and last points of these N_PTS are identical, then the calculated distance
+* to compare with DIST will be the distance from this point to all other points.
+* The function uses the other function distance_to_line in order to calculate the distance.
+*
+* @return true if the condition is met, false otherwise.
+*/
+boolean check_lic_6(void){
+    int N_PTS = PARAMETERS.NPTS;
+    if(NUMPOINTS < 3 || N_PTS < 3 || N_PTS > NUMPOINTS){
+        return false;
+    }
+
+    if(X == NULL || Y == NULL){
+        return false;
+    }
+
+    for(int i = 0; i < NUMPOINTS - N_PTS+1; i++){
+        double x_first = X[i];
+        double x_last = X[i+N_PTS-1];
+        double y_first = Y[i];
+        double y_last = Y[i+N_PTS-1];
+
+        boolean same_point = false;
+        if(x_first == x_last && y_first == y_last){
+            same_point = true;
+        }
+
+        for(int j = i+1; j < N_PTS; j++){
+            double dist;
+
+            if(same_point){
+                dist = distance(x_first,X[j],y_first,Y[j]);
+            } else{
+                dist = distance_to_line(X[j],Y[j],x_first,y_first,x_last,y_last);
+            }
+  
+            if(DOUBLECOMPARE(dist,PARAMETERS.DIST) == GT){
+                return true;
+            }
+        }
+    }
+    return false;
+}
+
+/*
+* Calculates the (shortest) distance from a point (x,y) to a line. It is calculated
+* from getting the perpendicular point on the line from the given point. The calculation
+* is derived from the equation for a triangle's area; A=(b*h)/2
+* https://en.wikipedia.org/wiki/Distance_from_a_point_to_a_line
+*
+* @param x0 x-coordinate of the point
+* @param y0 y-coordinate of the point
+* @param x1 x-coordinate for one of the points making the line
+* @param y1 y-coordinate for one of the points making the line
+* @param x2 x-coordinate for the other point making the line
+* @param y2 y-coordinate for the other point making the line
+* @return The distance between the point (x0,y0) and the line between (x1,y1) and (x2,y2)
+*/
+double distance_to_line(double x0, double y0, double x1, double y1, double x2, double y2){
+    return fabs((x2-x1)*(y1-y0)-(x1-x0)*(y2-y1)) / distance(x1,x2,y1,y2);
+}
+
 boolean check_lic_7(void){
     // The below check also handles the case where NUMPOINTS < 3
     if(1 > PARAMETERS.KPTS || PARAMETERS.KPTS > NUMPOINTS-2){
@@ -223,6 +290,89 @@ double distance_by_index(int p1Index, int p2Index){
     int y1 = Y[p1Index];
     int y2 = Y[p2Index];
     return sqrt((x2-x1)*(x2-x1)+(y2-y1)*(y2-y1));
+}
+
+boolean check_lic_9(void){
+    if(1 > PARAMETERS.CPTS || 1 > PARAMETERS.DPTS || PARAMETERS.CPTS + PARAMETERS.DPTS > NUMPOINTS - 3){
+        return false;
+    }
+    if(X == NULL || Y == NULL){
+        return false;
+    }
+    if(NUMPOINTS < 5){
+        return false;
+    }
+
+    for(int i=0; i + PARAMETERS.CPTS + 1 + PARAMETERS.DPTS + 1 < NUMPOINTS; i++){
+        int j = i + PARAMETERS.CPTS + 1;
+        int k = j + PARAMETERS.DPTS + 1;
+
+        double x1 = X[i]; double x2 = X[j]; double x3 = X[k];
+        double y1 = Y[i]; double y2 = Y[j]; double y3 = Y[k];
+
+        if((x1 == x2) && (y1 == y2)){
+            continue;
+        } else if((x3 == x2) && (y3 == y2)){
+            continue;
+        }
+
+        // Method inspired by https://stackoverflow.com/a/31334882/19188850
+        // Returns a number between -pi and pi (Whether the interval is closed, half-closed or open should be tested)
+        double angle =  atan2(y1 - y2, x1 - x2) - atan2(y3 - y2, x3 - x2);
+
+        if(angle < 0){
+            // This needs to be tested, might need to get replaced by `angle += 2*PI;`
+            angle = -angle;
+        }
+
+        if(DOUBLECOMPARE(angle, PI - PARAMETERS.EPSILON) == LT){
+            return true;
+        } else if(DOUBLECOMPARE(angle, PI + PARAMETERS.EPSILON) == GT){
+            return true;
+        }
+
+    }
+    return false;
+}
+
+/*
+* Checks the condition for LIC 10, 
+* there exists at least one set of three data points separated by exactly E_PTS and F_PTS
+* consecutive intervening points, respectively, that are the vertices of a triangle with 
+* area greater than AREA1.
+*
+* @return true if the condition is met, false otherwise.
+*/
+boolean check_lic_10(void){
+    int E_PTS = PARAMETERS.EPTS;
+    int F_PTS = PARAMETERS.FPTS;
+	//condition is not met when NUMPOINTS < 5, or when E_PTS / F_PTS is 0 or lower
+	if(NUMPOINTS < 5 || E_PTS < 1 || F_PTS < 1){
+		return false;
+	}
+	if(E_PTS + F_PTS > NUMPOINTS-3){
+		return false;
+	}
+	
+	for(int index1 = 0; index1 < NUMPOINTS-(E_PTS+F_PTS+2); index1++){
+		int index2 = index1 + E_PTS + 1;
+		int index3 = index2 + F_PTS + 1;
+		
+		double ab = distance(X[index1], X[index2], Y[index1],Y[index2]);
+		double ac = distance(X[index1], X[index3], Y[index1],Y[index3]);
+		double bc = distance(X[index2], X[index3], Y[index2],Y[index3]);
+		
+		if (ab == 0 || ac == 0 || bc == 0){
+			return false;
+		}
+		
+		double area = triangle_area(ab,ac,bc);
+     
+		if(DOUBLECOMPARE(area, PARAMETERS.AREA1) == GT){
+			return true;
+		}
+	}
+    return false;
 }
 
 boolean check_lic_11(void){

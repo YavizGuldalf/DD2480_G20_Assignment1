@@ -218,6 +218,9 @@ static char * all_tests() {
     mu_run_test(test_lic7_negative);
     mu_run_test(test_lic7_positive);
     mu_run_test(test_lic7_invalid);
+    mu_run_test(test_lic9_negative);
+    mu_run_test(test_lic9_positive);
+    mu_run_test(test_lic9_invalid);
     return 0;
 }
 

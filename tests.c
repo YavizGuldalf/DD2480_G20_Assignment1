@@ -409,7 +409,59 @@ static char * test_lic11_invalid(void){
     return 0;
 }
 
+/*
+*  A test where check_lic_12 should return true
+* @return 0 if the test passes, an error message otherwise
+*/
+static char * test_lic12_positive(void){
+    NUMPOINTS = 7;
+    PARAMETERS.KPTS = 2;
+    PARAMETERS.LENGTH1 = 2;
+    PARAMETERS.LENGTH2 = 4;
+    double local_X[7] = {1,2,4,4,5,6,3.8};
+    X = local_X;
+    double local_Y[7] = {1,2,1,8,10,13,14};
+    Y = local_Y;
 
+    mu_assert("The positive test failed for lic12!", check_lic_12() == true);
+    return 0;
+}
+
+/*
+*  A test where check_lic_12 should return false
+* @return 0 if the test passes, an error message otherwise
+*/
+static char * test_lic12_negative(void){
+    NUMPOINTS = 7;
+    PARAMETERS.KPTS = 2;
+    PARAMETERS.LENGTH1 = 2;
+    PARAMETERS.LENGTH2 = 4;
+    double local_X[7] = {0,2,4,8,5,6,3.8};
+    X = local_X;
+    double local_Y[7] = {0,2,4,8,14,16,20};
+    Y = local_Y;
+
+    mu_assert("The negative test failed for lic12!", check_lic_12() == false);
+    return 0;
+}
+
+/*
+*  A test where check_lic_12 should return false with an invalid input
+* @return 0 if the test passes, an error message otherwise
+*/
+static char * test_lic12_invalid(void){
+    NUMPOINTS = 7;
+    PARAMETERS.KPTS = 2;
+    PARAMETERS.LENGTH1 = 2;
+    PARAMETERS.LENGTH2 = -1;
+    double local_X[7] = {1,2,3,4,5,6,3.8};
+    X = local_X;
+    double local_Y[7] = {1,2,4,8,10,13,14};
+    Y = local_Y;
+
+    mu_assert("The invalid test failed for lic12!", check_lic_12() == false);
+    return 0;
+}
 
 /* This functions runs all the tests currently prepared for this revision.
 *  Any new tests that are implemented should be added to this function as well.
@@ -424,7 +476,10 @@ static char * all_tests() {
     mu_run_test(test_lic5_invalid);
     mu_run_test(test_lic7_negative);
     mu_run_test(test_lic7_positive);
-    mu_run_test(test_lic7_invalid); 
+    mu_run_test(test_lic7_invalid);
+    mu_run_test(test_lic8_negative);
+    mu_run_test(test_lic8_positive);
+    mu_run_test(test_lic8_invalid);
     mu_run_test(test_lic9_negative);
     mu_run_test(test_lic9_positive);
     mu_run_test(test_lic9_invalid);
@@ -434,6 +489,9 @@ static char * all_tests() {
     mu_run_test(test_lic11_negative);
     mu_run_test(test_lic11_invalid);
     mu_run_test(test_lic11_positive);
+    mu_run_test(test_lic12_negative);
+    mu_run_test(test_lic12_invalid);
+    mu_run_test(test_lic12_positive);
     return 0;
 }
 
@@ -512,27 +570,6 @@ static char * lic10_tests(){
 }
 
 /*
-*  Runs all of the tests of lic9 until an error is encountered or all the tests are passed.
-*  @returns 0 if all the tests pass, the error message of the first test that fails otherwise.
-*/
-static char * lic9_tests(){
-    mu_run_test(test_lic9_negative);
-    mu_run_test(test_lic9_positive);
-    mu_run_test(test_lic9_invalid);
-}
-
-/*
-*  Runs all of the tests of lic10 until an error is encountered or all the tests are passed.
-*  @returns 0 if all the tests pass, the error message of the first test that fails otherwise.
-*/
-static char * lic10_tests(){
-    mu_run_test(test_lic10_negative);
-    mu_run_test(test_lic10_positive);
-    mu_run_test(test_lic10_invalid);
-    return 0;
-}
-
-/*
 *  Runs all of the tests of lic11 until an error is encountered or all the tests are passed.
 *  @returns 0 if all the tests pass, the error message of the first test that fails otherwise.
 */
@@ -540,6 +577,18 @@ static char * lic11_tests(void){
     mu_run_test(test_lic11_negative);
     mu_run_test(test_lic11_positive);
     mu_run_test(test_lic11_invalid);
+
+    return 0;
+}
+
+/*
+*  Runs all of the tests of lic12 until an error is encountered or all the tests are passed.
+*  @returns 0 if all the tests pass, the error message of the first test that fails otherwise.
+*/
+static char * lic12_tests(void){
+    mu_run_test(test_lic12_negative);
+    mu_run_test(test_lic12_positive);
+    mu_run_test(test_lic12_invalid);
 
     return 0;
 }

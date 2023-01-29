@@ -100,6 +100,10 @@ static char * test_lic0_invalid(){
     return 0;
 }
 
+/*
+*  A test where check_lic_0 should return true
+* @return 0 if the test passes, an error message otherwise
+*/
 static char * test_lic5_positive(){
     NUMPOINTS = 2;
     double local_X[2];
@@ -113,6 +117,10 @@ static char * test_lic5_positive(){
     return 0;
 }
 
+/*
+*  A test where check_lic_5 should return false
+* @return 0 if the test passes, an error message otherwise
+*/
 static char * test_lic5_negative(){
     NUMPOINTS = 2;
     double local_X[2];
@@ -126,6 +134,10 @@ static char * test_lic5_negative(){
     return 0;
 }
 
+/*
+*  A test where check_lic_5 should return false with an invalid input
+* @return 0 if the test passes, an error message otherwise
+*/
 static char * test_lic5_invalid(){
     NUMPOINTS = 2;
     X = NULL;

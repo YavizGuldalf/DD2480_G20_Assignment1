@@ -237,3 +237,19 @@ boolean check_lic_11(void){
     }
     return false;
 }
+
+/*
+* Checks the condition for LIC 13, which is there exists at least one set of three data points, separated by exactly A PTS and B PTS
+* consecutive intervening points, respectively, that cannot be contained within or on a circle of
+* radius RADIUS1. In addition, there exists at least one set of three data points (which can be
+* the same or different from the three data points just mentioned) separated by exactly A PTS
+* and B PTS consecutive intervening points, respectively, that can be contained in or on a
+* circle of radius RADIUS2. Both parts must be true for the LIC to be true. The condition is
+* not met when NUMPOINTS < 5.
+* 0 < RADIUS2
+*
+* @return true if the condition is met, false otherwise.
+*/
+boolean check_lic_13(void){
+
+}

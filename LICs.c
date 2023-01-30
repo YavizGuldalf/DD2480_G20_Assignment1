@@ -39,29 +39,22 @@ double distance (double x1, double x2, double y1, double y2) {
     return sqrt(pow(x2-x1, 2) + pow(y2-y1, 2));
 }
 
-double largest_3 (double a, double b, double c) {
-    if(a > b && a > c)
-        return a;
-    else if (b > c)
-        return b;
-    else
-        return c;
-}
-
 //LIC 1
 boolean check_lic_1 () {
-    for(int i = 0; i < 97; i++) {
-        double ab = distance(*(X+i), *(X+i+1), *(Y+i), *(Y+i+1));
-        double bc = distance(*(X+i+1), *(X+i+2), *(Y+i+1), *(Y+i+2));
-        double ac = distance(*(X+i), *(X+i+2), *(Y+i), *(Y+i+2));
+    if(PARAMETERS.RADIUS1 < 0)
+        return false;
 
-        double diameter = largest_3(ab, ac, ab);
+    for(int i = 0; i < NUMPOINTS; i++) {
+        double centerX = (*(X+i)+*(X+i+1)+*(X+i+2))/3;
+        double centerY = (*(Y+i)+*(Y+i+1)+*(Y+i+2))/3;
 
-        if(diameter < PARAMETERS.RADIUS1*2)
-            return 1;
+        double r = distance(*(X+i), centerX, *(Y+i), centerY);
+
+        if(r > PARAMETERS.RADIUS1)
+            return true;
     }
 
-    return 0;
+    return false;
 }
 
 /*
@@ -414,6 +407,24 @@ boolean check_lic_11(void){
             return true;
         }
     }
+    return false;
+}
+
+//LIC 12
+boolean check_lic_12(void){
+    if(NUMPOINTS < 3 || PARAMETERS.LENGTH2 < 0)
+        return false;
+
+    for(int i = 0; i + PARAMETERS.KPTS + 1 < NUMPOINTS; i++) {
+        int j = i + PARAMETERS.KPTS + 1;
+
+        double dist = distance(*(X+i), *(X+j), *(Y+i), *(Y+j));
+
+
+        if(dist > PARAMETERS.LENGTH1 && dist < PARAMETERS.LENGTH2)
+            return true;
+    }
+
     return false;
 }
 

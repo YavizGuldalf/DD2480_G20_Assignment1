@@ -417,6 +417,16 @@ boolean check_lic_11(void){
     return false;
 }
 
+/*
+* Checks the condition for LIC 14, 
+* there exists at least one set of three data points, separated by exactly E_PTS and F_PTS 
+* consecutive points, respectively, that make up a triangle with a bigger area than AREA1.
+* Additionally, there exist three data points (same or different set) separated by exactly E_PTS and F_PTS 
+* consecutive intervening points, respectively, that make up a triangle with a smaller area than AREA2.
+* Both parts must be true for the LIC to be true.
+*
+* @return true if both the conditions are met, false otherwise.
+*/
 boolean check_lic_14(void){
     int E_PTS = PARAMETERS.EPTS;
     int F_PTS = PARAMETERS.FPTS;
@@ -449,6 +459,6 @@ boolean check_lic_14(void){
             cond2 = true;
         }
     }
-    return cond1 && cond2;
 
+    return cond1 && cond2;
 }

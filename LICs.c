@@ -224,11 +224,6 @@ boolean check_lic_8(void){
         double x[3] = {*(X+i), *(X+a), *(X+b)};
         double y[3] = {*(Y+i), *(Y+a), *(Y+b)};
 
-        if (x[0] == x[1] && y[0] == y[1] ||
-        x[0] == x[2] && y[0] == y[2] ||
-        x[1] == x[2] && y[1] == y[2])
-            continue;
-
         double ab = distance(x[0], x[1], y[0], y[1]);
         double bc = distance(x[1], x[2], y[1], y[2]);
         double ac = distance(x[0], x[2], y[0], y[2]);

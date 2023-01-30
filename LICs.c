@@ -39,29 +39,22 @@ double distance (double x1, double x2, double y1, double y2) {
     return sqrt(pow(x2-x1, 2) + pow(y2-y1, 2));
 }
 
-double largest_3 (double a, double b, double c) {
-    if(a > b && a > c)
-        return a;
-    else if (b > c)
-        return b;
-    else
-        return c;
-}
-
 //LIC 1
 boolean check_lic_1 () {
-    for(int i = 0; i < 97; i++) {
-        double ab = distance(*(X+i), *(X+i+1), *(Y+i), *(Y+i+1));
-        double bc = distance(*(X+i+1), *(X+i+2), *(Y+i+1), *(Y+i+2));
-        double ac = distance(*(X+i), *(X+i+2), *(Y+i), *(Y+i+2));
+    if(PARAMETERS.RADIUS1 < 0)
+        return false;
 
-        double diameter = largest_3(ab, ac, ab);
+    for(int i = 0; i < NUMPOINTS; i++) {
+        double centerX = (*(X+i)+*(X+i+1)+*(X+i+2))/3;
+        double centerY = (*(Y+i)+*(Y+i+1)+*(Y+i+2))/3;
 
-        if(diameter < PARAMETERS.RADIUS1*2)
-            return 1;
+        double r = distance(*(X+i), centerX, *(Y+i), centerY);
+
+        if(r > PARAMETERS.RADIUS1)
+            return true;
     }
 
-    return 0;
+    return false;
 }
 
 /*
@@ -273,6 +266,23 @@ boolean check_lic_7(void){
     }
 
     return false;
+}
+
+/*
+* Function which returns the largest out of three doubles.
+* 
+* @param a The first double to be compared
+* @param b The second double to be compared.
+* @param c The third double to be compared.
+* @return The largest value out of the three
+*/
+double largest_3 (double a, double b, double c) {
+    if(a > b && a > c)
+        return a;
+    else if (b > c)
+        return b;
+    else
+        return c;
 }
 
 //LIC 8
@@ -487,13 +497,13 @@ boolean check_lic_13(void){
     // Since it is the case with every other LIC, I will be assuming that A and B are both at least 1.
     // I will further be assuming that RADIUS1 has to be bigger than 0.
     if(1 > PARAMETERS.APTS || 1 > PARAMETERS.BPTS || NUMPOINTS < 5 || 0 >= PARAMETERS.RADIUS2 || 0 >= PARAMETERS.RADIUS1){
-        return false;
+            return false;
     }
 
     if(X == NULL || Y == NULL){
         return false;
     }
-
+    
     int cond1 = false;
     int cond2 = false;
 
@@ -549,7 +559,70 @@ boolean check_lic_13(void){
         if(DOUBLECOMPARE(R, PARAMETERS.RADIUS2) == LT){
             cond2 = true;
         }
+    }
 
+    return cond1 && cond2;
+}
+
+//LIC 12
+boolean check_lic_12(void){
+    if(NUMPOINTS < 3 || PARAMETERS.LENGTH2 < 0)
+        return false;
+
+    for(int i = 0; i + PARAMETERS.KPTS + 1 < NUMPOINTS; i++) {
+        int j = i + PARAMETERS.KPTS + 1;
+
+        double dist = distance(*(X+i), *(X+j), *(Y+i), *(Y+j));
+
+
+        if(dist > PARAMETERS.LENGTH1 && dist < PARAMETERS.LENGTH2)
+            return true;
+    }
+
+    return false;
+}
+
+/*
+* Checks the condition for LIC 14, 
+* there exists at least one set of three data points, separated by exactly E_PTS and F_PTS 
+* consecutive points, respectively, that make up a triangle with a bigger area than AREA1.
+* Additionally, there exist three data points (same or different set) separated by exactly E_PTS and F_PTS 
+* consecutive intervening points, respectively, that make up a triangle with a smaller area than AREA2.
+* Both parts must be true for the LIC to be true.
+*
+* @return true if both the conditions are met, false otherwise.
+*/
+boolean check_lic_14(void){
+    int E_PTS = PARAMETERS.EPTS;
+    int F_PTS = PARAMETERS.FPTS;
+    boolean cond1 = false;
+    boolean cond2 = false;
+
+    if(NUMPOINTS < 5 || PARAMETERS.AREA2 < 0 || E_PTS < 0 || F_PTS < 0){
+        return false;
+    }
+
+    if(X == NULL || Y == NULL){
+        return false;
+    }
+    
+    for(int index1 = 0; index1 < NUMPOINTS-E_PTS-F_PTS-2; index1++){
+        int index2 = index1 + E_PTS + 1;
+        int index3 = index2 + F_PTS + 1;
+
+        double dist1 = distance_by_index(index1, index2);
+        double dist2 = distance_by_index(index1, index3);
+        double dist3 = distance_by_index(index2, index3);
+
+        double tri_area = triangle_area(dist1,dist2,dist3);
+        
+        if(DOUBLECOMPARE(tri_area,PARAMETERS.AREA1) == GT){
+            cond1 = true;
+        }
+
+        if(DOUBLECOMPARE(tri_area,PARAMETERS.AREA2) == LT){
+            cond2 = true;
+        }
     }
 
     return cond1 && cond2;

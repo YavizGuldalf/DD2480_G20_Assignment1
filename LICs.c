@@ -361,6 +361,7 @@ boolean check_lic_9(void){
         }
 
     }
+    return false;
 }
 
 /*

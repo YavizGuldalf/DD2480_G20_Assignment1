@@ -2,11 +2,12 @@
 #include <stdio.h>
 #include <stdbool.h>
 
-const int LIC_COUNT = 15;
-
 void fill_FUV(void);
 void CMV_fill(void);
 void fill_PUM(void);
+void CMV_free();
+void free_PUM();
+void free_FUV();
 
 // Makes the final decision of launching or not launching
 int main(){

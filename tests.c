@@ -745,6 +745,7 @@ static char * lic9_tests(){
     mu_run_test(test_lic9_negative);
     mu_run_test(test_lic9_positive);
     mu_run_test(test_lic9_invalid);
+    return 0;
 }
 
 /*

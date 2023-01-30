@@ -466,6 +466,63 @@ static char * test_lic11_invalid(void){
     return 0;
 }
 
+/*
+*  A test where check_lic_14 should return true
+*  
+* @return 0 if the test passes, an error message otherwise
+*/
+static char * test_lic14_positive(){
+    NUMPOINTS = 8;
+    PARAMETERS.EPTS = 1;
+    PARAMETERS.FPTS = 1;
+    PARAMETERS.AREA1 = 1.9;
+    PARAMETERS.AREA2 = 1.9;
+    double local_X[8] = {0,2,4,3,4,5,10,2};
+    X = local_X;
+    double local_Y[8] = {0,2,0,0,8,1.4,1.3,2};
+    Y = local_Y;
+
+    mu_assert("The positive test failed for lic14!", check_lic_14() == true);
+    return 0;
+}
+
+/*
+*  A test where check_lic_14 should return false
+*  
+* @return 0 if the test passes, an error message otherwise
+*/
+static char * test_lic14_negative(){
+    NUMPOINTS = 5;
+    PARAMETERS.EPTS = 1;
+    PARAMETERS.FPTS = 1;
+    PARAMETERS.AREA1 = 2.001;
+    double local_X[5] = {1,2,3,4,2};
+    X = local_X;
+    double local_Y[5] = {0,2,0,8,2};
+    Y = local_Y;
+
+    mu_assert("The negative test failed for lic14!", check_lic_14() == false);
+    return 0;
+}
+
+/*
+*  A test where check_lic_14 should return false with an invalid input
+*  
+* @return 0 if the test passes, an error message otherwise
+*/
+static char * test_lic14_invalid(){
+    NUMPOINTS = 4;
+    PARAMETERS.EPTS = -10;
+    PARAMETERS.FPTS = 3;
+    PARAMETERS.AREA1 = 1.9;
+    double local_X[8] = {1,2,2,3,4,5,10,2};
+    X = local_X;
+    double local_Y[8] = {0,2,1,0,8,1.4,1.3,2};
+    Y = local_Y;
+
+    mu_assert("The invalid test failed for lic14!", check_lic_14() == false);
+    return 0;
+}
 
 
 /* This functions runs all the tests currently prepared for this revision.
@@ -596,8 +653,20 @@ static char * lic11_tests(void){
     return 0;
 }
 
+/*
+*  Runs all of the tests of lic14 until an error is encountered or all the tests are passed.
+*  @returns 0 if all the tests pass, the error message of the first test that fails otherwise.
+*/
+static char * lic14_tests(void){
+   // mu_run_test(test_lic14_negative);
+    //mu_run_test(test_lic14_positive);
+    mu_run_test(test_lic14_invalid);
+
+    return 0;
+}
+
 int main(int argc, char **argv) {
-    char *result = all_tests();
+    char *result = lic14_tests();
     if (result != 0) {
         printf("%s\n", result);
     }

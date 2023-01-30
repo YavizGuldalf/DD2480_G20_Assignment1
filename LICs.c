@@ -275,6 +275,35 @@ boolean check_lic_7(void){
     return false;
 }
 
+//LIC 8
+boolean check_lic_8(void){
+    if(PARAMETERS.APTS < 1 || PARAMETERS.BPTS < 1 ||
+    PARAMETERS.APTS + PARAMETERS.BPTS > NUMPOINTS - 3)
+        return false;
+
+    if(NUMPOINTS < 5)
+        return false;
+
+    for(int i = 0; i + PARAMETERS.APTS + PARAMETERS.BPTS < NUMPOINTS - 3; i++) {
+        int a = i + PARAMETERS.APTS;
+        int b = a + PARAMETERS.BPTS;
+
+        double x[3] = {*(X+i), *(X+a), *(X+b)};
+        double y[3] = {*(Y+i), *(Y+a), *(Y+b)};
+
+        double ab = distance(x[0], x[1], y[0], y[1]);
+        double bc = distance(x[1], x[2], y[1], y[2]);
+        double ac = distance(x[0], x[2], y[0], y[2]);
+
+        double diameter = largest_3(ab, ac, ab);
+
+        if(diameter > PARAMETERS.RADIUS1*2)
+            return true;
+    }
+
+    return false;
+}
+
 /*
 * Given the indexes for two points, returns the distance between the points
 * found at these indices. Doesn't check the validity of X and Y arrays so

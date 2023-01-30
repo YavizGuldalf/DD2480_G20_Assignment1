@@ -12,15 +12,12 @@ This file is supposed to be used in the following way:
    a static string that explains the failed test, FUNCTION is the function (a condition also works)
    that is being tested, and VALUE is the expected return value of the function. The second line that
    must be present at the end of the file is `return 0;`
-
 2- Then, these tests are supposed to be run inside another function that returns static char * (see the
    current_tests function). This outside function is only supposed to call mu_run_test with the test
    you want to run as its only parameter (you can call mu_run_test multiple times with different 
    parameters if you wish to run multiple tests). This function must also end with `return 0;`
-
 3- Inside main, you can replace the function on the first line with the function you want to run. When 
    you compile and run the file, the result of the tests should be output to stdout.
-
 */
 
 /*
@@ -251,6 +248,60 @@ static char * test_lic7_invalid(){
     Y = local_Y;
 
     mu_assert("The invalid test failed for lic7!", check_lic_7() == false);
+    return 0;
+}
+
+/*
+*  A test where check_lic_8 should return true
+* @return 0 if the test passes, an error message otherwise
+*/
+static char * test_lic8_positive(){
+    NUMPOINTS = 7;
+    PARAMETERS.RADIUS1 = 3;
+    PARAMETERS.APTS = 1;
+    PARAMETERS.BPTS = 2;
+    double local_X[7] = {1,2,3,4,5,6,7};
+    X = local_X;
+    double local_Y[7] = {1,2,4,8,10,13,15};
+    Y = local_Y;
+
+    mu_assert("The positive test failed for lic8!", check_lic_8() == true);
+    return 0;
+}
+
+/*
+*  A test where check_lic_8 should return false
+* @return 0 if the test passes, an error message otherwise
+*/
+static char * test_lic8_negative(){
+    NUMPOINTS = 7;
+    PARAMETERS.RADIUS1 = 3;
+    PARAMETERS.APTS = 1;
+    PARAMETERS.BPTS = 2;
+    double local_X[7] = {1,2,2,1,2,-1,1};
+    X = local_X;
+    double local_Y[7] = {1,2,2,2,1,1,-1};
+    Y = local_Y;
+
+    mu_assert("The negative test failed for lic8!", check_lic_8() == false);
+    return 0;
+}
+
+/*
+*  A test where check_lic_8 should return false with an invalid input
+* @return 0 if the test passes, an error message otherwise
+*/
+static char * test_lic8_invalid(){
+    NUMPOINTS = 7;
+    PARAMETERS.RADIUS1 = 3;
+    PARAMETERS.APTS = 0;
+    PARAMETERS.BPTS = 2;
+    double local_X[7] = {1,2,3,4,5,6,7};
+    X = local_X;
+    double local_Y[7] = {1,2,4,8,10,13,15};
+    Y = local_Y;
+
+    mu_assert("The invalid test failed for lic8!", check_lic_8() == false);
     return 0;
 }
 
@@ -501,6 +552,41 @@ static char * lic7_tests(){
     return 0;
 }
 
+<<<<<<< HEAD
+/*
+*  Runs all of the tests of lic8 until an error is encountered or all the tests are passed.
+*  @returns 0 if all the tests pass, the error message of the first test that fails otherwise.
+*/
+static char * lic8_tests(){
+    mu_run_test(test_lic8_negative);
+    mu_run_test(test_lic8_positive);
+    mu_run_test(test_lic8_invalid);
+    return 0;
+}
+
+/*
+*  Runs all of the tests of lic9 until an error is encountered or all the tests are passed.
+*  @returns 0 if all the tests pass, the error message of the first test that fails otherwise.
+*/
+static char * lic9_tests(){
+    mu_run_test(test_lic9_negative);
+    mu_run_test(test_lic9_positive);
+    mu_run_test(test_lic9_invalid);
+}
+
+/*
+*  Runs all of the tests of lic10 until an error is encountered or all the tests are passed.
+*  @returns 0 if all the tests pass, the error message of the first test that fails otherwise.
+*/
+static char * lic10_tests(){
+    mu_run_test(test_lic10_negative);
+    mu_run_test(test_lic10_positive);
+    mu_run_test(test_lic10_invalid);
+    return 0;
+}
+
+=======
+>>>>>>> 0195cc9709ec24985d5cd5a50e1f6d1d80d3fd44
 /*
 *  Runs all of the tests of lic9 until an error is encountered or all the tests are passed.
 *  @returns 0 if all the tests pass, the error message of the first test that fails otherwise.
@@ -546,5 +632,3 @@ int main(int argc, char **argv) {
 
     return result != 0;
 }
-
-

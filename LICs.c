@@ -421,8 +421,8 @@ boolean check_lic_12(void){
     if(NUMPOINTS < 3 || PARAMETERS.LENGTH2 < 0)
         return false;
 
-    for(int i = 0; i + PARAMETERS.KPTS < NUMPOINTS; i++) {
-        int j = i + PARAMETERS.KPTS;
+    for(int i = 0; i + PARAMETERS.KPTS + 1 < NUMPOINTS; i++) {
+        int j = i + PARAMETERS.KPTS + 1;
 
         double dist = distance(*(X+i), *(X+j), *(Y+i), *(Y+j));
 

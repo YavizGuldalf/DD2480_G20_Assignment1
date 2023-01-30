@@ -477,7 +477,7 @@ static char * test_lic12_positive(void){
     PARAMETERS.LENGTH2 = 4;
     double local_X[7] = {1,2,4,4,5,6,3.8};
     X = local_X;
-    double local_Y[7] = {1,2,1,8,10,13,14};
+    double local_Y[7] = {1,2,1,1,10,13,14};
     Y = local_Y;
 
     mu_assert("The positive test failed for lic12!", check_lic_12() == true);
@@ -536,7 +536,7 @@ static char * all_tests() {
     mu_run_test(test_lic6_invalid);
     mu_run_test(test_lic7_negative);
     mu_run_test(test_lic7_positive);
-    mu_run_test(test_lic7_invalid);
+    mu_run_test(test_lic7_invalid); 
     mu_run_test(test_lic8_negative);
     mu_run_test(test_lic8_positive);
     mu_run_test(test_lic8_invalid);
@@ -610,10 +610,6 @@ static char * lic7_tests(){
     return 0;
 }
 
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD
->>>>>>> 8a0cabb6b5c4636f40a476c44e580bf581bb2fe0
 /*
 *  Runs all of the tests of lic8 until an error is encountered or all the tests are passed.
 *  @returns 0 if all the tests pass, the error message of the first test that fails otherwise.
@@ -624,33 +620,7 @@ static char * lic8_tests(){
     mu_run_test(test_lic8_invalid);
     return 0;
 }
-<<<<<<< HEAD
-=======
 
-/*
-*  Runs all of the tests of lic9 until an error is encountered or all the tests are passed.
-*  @returns 0 if all the tests pass, the error message of the first test that fails otherwise.
-*/
-static char * lic9_tests(){
-    mu_run_test(test_lic9_negative);
-    mu_run_test(test_lic9_positive);
-    mu_run_test(test_lic9_invalid);
-}
->>>>>>> 8a0cabb6b5c4636f40a476c44e580bf581bb2fe0
-
-/*
-*  Runs all of the tests of lic10 until an error is encountered or all the tests are passed.
-*  @returns 0 if all the tests pass, the error message of the first test that fails otherwise.
-*/
-static char * lic10_tests(){
-    mu_run_test(test_lic10_negative);
-    mu_run_test(test_lic10_positive);
-    mu_run_test(test_lic10_invalid);
-    return 0;
-}
-
-=======
->>>>>>> 0195cc9709ec24985d5cd5a50e1f6d1d80d3fd44
 /*
 *  Runs all of the tests of lic9 until an error is encountered or all the tests are passed.
 *  @returns 0 if all the tests pass, the error message of the first test that fails otherwise.

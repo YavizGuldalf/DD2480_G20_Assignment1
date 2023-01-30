@@ -98,7 +98,58 @@ static char * test_lic0_invalid(){
 }
 
 /*
-*  A test where check_lic_0 should return true
+*  A test where check_lic_4 should return true
+* @return 0 if the test passes, an error message otherwise
+*/
+static char * test_lic4_positive(){
+    NUMPOINTS = 7;
+    PARAMETERS.QPTS = 4;
+    PARAMETERS.QUADS = 2;
+    double local_X[7] = {0,2,-1,-1,5,6,7};
+    X = local_X;
+    double local_Y[7] = {0,-1,4,-1,10,13,14};
+    Y = local_Y;
+
+    mu_assert("The positive test for LIC 4 failed!", check_lic_4() == true);
+    return 0;
+}
+
+/*
+*  A test where check_lic_4 should return false
+* @return 0 if the test passes, an error message otherwise
+*/
+static char * test_lic4_negative(){
+    NUMPOINTS = 7;
+    PARAMETERS.QPTS = 4;
+    PARAMETERS.QUADS = 2;
+    double local_X[7] = {0,2,1,-1,5,6,7};
+    X = local_X;
+    double local_Y[7] = {0,1,4,1,10,13,14};
+    Y = local_Y;
+
+    mu_assert("The negative test for LIC 4 failed!", check_lic_4() == false);
+    return 0;
+}
+
+/*
+*  A test where check_lic_4 should return false with an invalid input
+* @return 0 if the test passes, an error message otherwise
+*/
+static char * test_lic4_invalid(){
+    NUMPOINTS = 7;
+    PARAMETERS.QPTS = 1;
+    PARAMETERS.QUADS = 2;
+    double local_X[7] = {0,2,-1,-1,5,6,7};
+    X = local_X;
+    double local_Y[7] = {0,-1,4,-1,10,13,14};
+    Y = local_Y;
+
+    mu_assert("The invalid test for LIC 4 failed!", check_lic_4() == false);
+    return 0;
+}
+
+/*
+*  A test where check_lic_5 should return true
 * @return 0 if the test passes, an error message otherwise
 */
 static char * test_lic5_positive(){

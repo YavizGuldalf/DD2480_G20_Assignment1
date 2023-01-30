@@ -389,6 +389,60 @@ boolean check_lic_11(void){
 }
 
 /*
+* Given the indexes for two points, returns the slope of the line joining the points
+* found at these indices. Doesn't check the validity of X and Y arrays so
+* that check must be done externally. This method does not return accurate results
+* when the two points are the same.
+* 
+* @param i The index of the first point in the X and Y arrays.
+* @param j The index of the second point in the the X and Y arrays.
+* @return The slope of the line joining the first line to the second
+*/
+double slope_by_index(int i, int j){
+    double delta_y = Y[j] - Y[i];
+    double delta_x = X[j] = X[i];
+
+    if(delta_x == 0){
+        return 99999999999;
+    } else{
+        return delta_y / delta_x;
+    }
+    
+
+}
+
+/*
+* Given the indexes for two points, returns the angle that has the point at index j 
+* as its vertex. Doesn't check the validity of X and Y arrays so
+* that check must be done externally. This method always returns an answer less than PI.
+* 
+* @param i The index of the first point in the X and Y arrays.
+* @param j The index of the vertex of the angle in the the X and Y arrays.
+* @param k The index of the second point in the the X and Y arrays.
+* @return The slope of the line joining the first line to the second
+*/
+double angle_by_index(int i, int j, int k){
+    int x1 = X[i]; int y1 = Y[i];
+    int x2 = X[j]; int y2 = Y[j];
+    int x3 = X[k]; int y3 = Y[k];
+
+    // Method inspired by https://stackoverflow.com/a/31334882/19188850
+    // Returns a number between -pi and pi (Whether the interval is closed, half-closed or open should be tested)
+    double angle =  atan2(y1 - y2, x1 - x2) - atan2(y3 - y2, x3 - x2);
+
+    if(angle < 0){
+        // This needs to be tested, might need to get replaced by angle += 2*PI;
+        angle = -angle;
+    }
+
+    if(DOUBLECOMPARE(angle, PI) == GT){
+        angle = (2 * PI) - angle;
+    }
+    
+    return angle;
+}
+
+/*
 * Checks the condition for LIC 13, which is there exists at least one set of three data points, separated by exactly A PTS and B PTS
 * consecutive intervening points, respectively, that cannot be contained within or on a circle of
 * radius RADIUS1. In addition, there exists at least one set of three data points (which can be
@@ -418,17 +472,52 @@ boolean check_lic_13(void){
         int j = i + PARAMETERS.APTS + 1;
         int k = j + PARAMETERS.BPTS + 1;
 
+
         double dist1 = distance_by_index(i, j);
         double dist2 = distance_by_index(j, k);
         double dist3 = distance_by_index(i, k);
+        double slope1 = slope_by_index(i,j);
+        double slope2 = slope_by_index(j,k);
+        double slope3 = slope_by_index(i,k);
+        double angle1 = angle_by_index(i,j,k);
+        double angle2 = angle_by_index(i,k,j);
+        double angle3 = angle_by_index(k,i,j);
+
+
 
         double largest_dist = largest_3(dist1, dist2, dist3);
+        double largest_angle = largest_3(angle1, angle2, angle3);
 
-        if(largest_dist > PARAMETERS.RADIUS1 * 2){
+        // To find the smallest circle that can contain these 3 points, we will use the method proposed at
+        // https://math.stackexchange.com/a/2234810, with a few more checks in case the three points don't 
+        // form a triangle.
+
+        int R;
+        // If two points are the same, or if the three points are on the same line (they don't form a triangle),
+        // or if they form an obtuse triangle,
+        // checking that the largest distance is less than RADIUS * 2 is sufficient.
+        if((X[i] == X[j] && Y[i] == Y[j]) ||
+           (X[i] == X[k] && Y[i] == Y[k]) ||
+           (X[j] == X[k] && Y[j] == Y[k]) ||
+           DOUBLECOMPARE(slope1, slope2) == EQ || 
+           DOUBLECOMPARE(slope1, slope3) == EQ ||
+           DOUBLECOMPARE(slope2, slope3) == EQ ||
+           DOUBLECOMPARE(largest_angle, PI/2) == GT){
+
+            R = largest_dist / 2;
+        } else{
+            // If the three points instead form an acute triangle, the radius of the circumscribed circle
+            // is the smallest radius these 3 points can fit in.
+
+            int s = (dist1 + dist2 + dist3) / 2;
+            R = (dist1*dist2*dist3) / (4*sqrt(s * (s-dist1) * (s - dist2) * (s - dist3)));
+
+        }
+        
+        if(DOUBLECOMPARE(R, PARAMETERS.RADIUS1) == GT){
             cond1 = true;
         }
-
-        if(largest_dist <= PARAMETERS.RADIUS2 * 2){
+        if(DOUBLECOMPARE(R, PARAMETERS.RADIUS2) == LT){
             cond2 = true;
         }
 

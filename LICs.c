@@ -433,14 +433,14 @@ boolean check_lic_14(void){
     boolean cond1 = false;
     boolean cond2 = false;
 
-    if(NUMPOINTS < 5 || PARAMETERS.AREA2 < 0){
+    if(NUMPOINTS < 5 || PARAMETERS.AREA2 < 0 || E_PTS < 0 || F_PTS < 0){
         return false;
     }
 
     if(X == NULL || Y == NULL){
         return false;
     }
-
+    
     for(int index1 = 0; index1 < NUMPOINTS-E_PTS-F_PTS-2; index1++){
         int index2 = index1 + E_PTS + 1;
         int index3 = index2 + F_PTS + 1;
@@ -450,7 +450,7 @@ boolean check_lic_14(void){
         double dist3 = distance_by_index(index2, index3);
 
         double tri_area = triangle_area(dist1,dist2,dist3);
-
+        
         if(DOUBLECOMPARE(tri_area,PARAMETERS.AREA1) == GT){
             cond1 = true;
         }

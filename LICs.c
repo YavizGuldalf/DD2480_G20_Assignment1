@@ -268,6 +268,23 @@ boolean check_lic_7(void){
     return false;
 }
 
+/*
+* Function which returns the largest out of three doubles.
+* 
+* @param a The first double to be compared
+* @param b The second double to be compared.
+* @param c The third double to be compared.
+* @return The largest value out of the three
+*/
+double largest_3 (double a, double b, double c) {
+    if(a > b && a > c)
+        return a;
+    else if (b > c)
+        return b;
+    else
+        return c;
+}
+
 //LIC 8
 boolean check_lic_8(void){
     if(PARAMETERS.APTS < 1 || PARAMETERS.BPTS < 1 ||

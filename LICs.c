@@ -416,3 +416,39 @@ boolean check_lic_11(void){
     }
     return false;
 }
+
+boolean check_lic_14(void){
+    int E_PTS = PARAMETERS.EPTS;
+    int F_PTS = PARAMETERS.FPTS;
+    boolean cond1 = false;
+    boolean cond2 = false;
+
+    if(NUMPOINTS < 5 || PARAMETERS.AREA2 < 0){
+        return false;
+    }
+
+    if(X == NULL || Y == NULL){
+        return false;
+    }
+
+    for(int index1 = 0; index1 < NUMPOINTS-E_PTS-F_PTS-2; index1++){
+        int index2 = index1 + E_PTS + 1;
+        int index3 = index2 + F_PTS + 1;
+
+        double dist1 = distance_by_index(index1, index2);
+        double dist2 = distance_by_index(index1, index3);
+        double dist3 = distance_by_index(index2, index3);
+
+        double tri_area = triangle_area(dist1,dist2,dist3);
+
+        if(DOUBLECOMPARE(tri_area,PARAMETERS.AREA1) == GT){
+            cond1 = true;
+        }
+
+        if(DOUBLECOMPARE(tri_area,PARAMETERS.AREA2) == LT){
+            cond2 = true;
+        }
+    }
+    return cond1 && cond2;
+
+}

@@ -552,7 +552,6 @@ static char * lic7_tests(){
     return 0;
 }
 
-<<<<<<< HEAD
 /*
 *  Runs all of the tests of lic8 until an error is encountered or all the tests are passed.
 *  @returns 0 if all the tests pass, the error message of the first test that fails otherwise.
@@ -564,29 +563,6 @@ static char * lic8_tests(){
     return 0;
 }
 
-/*
-*  Runs all of the tests of lic9 until an error is encountered or all the tests are passed.
-*  @returns 0 if all the tests pass, the error message of the first test that fails otherwise.
-*/
-static char * lic9_tests(){
-    mu_run_test(test_lic9_negative);
-    mu_run_test(test_lic9_positive);
-    mu_run_test(test_lic9_invalid);
-}
-
-/*
-*  Runs all of the tests of lic10 until an error is encountered or all the tests are passed.
-*  @returns 0 if all the tests pass, the error message of the first test that fails otherwise.
-*/
-static char * lic10_tests(){
-    mu_run_test(test_lic10_negative);
-    mu_run_test(test_lic10_positive);
-    mu_run_test(test_lic10_invalid);
-    return 0;
-}
-
-=======
->>>>>>> 0195cc9709ec24985d5cd5a50e1f6d1d80d3fd44
 /*
 *  Runs all of the tests of lic9 until an error is encountered or all the tests are passed.
 *  @returns 0 if all the tests pass, the error message of the first test that fails otherwise.
@@ -621,7 +597,7 @@ static char * lic11_tests(void){
 }
 
 int main(int argc, char **argv) {
-    char *result = lic6_tests();
+    char *result = all_tests();
     if (result != 0) {
         printf("%s\n", result);
     }

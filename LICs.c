@@ -108,7 +108,7 @@ double triangle_area (double a, double b, double c) {
 
 //LIC 3
 boolean check_lic_3 () {
-    for(int i = 0; i < NUMPOINTS; i++) {
+    for(int i = 0; i < NUMPOINTS-2; i++) {
         double ab = distance(*(X+i), *(X+i+1), *(Y+i), *(Y+i+1));
         double bc = distance(*(X+i+1), *(X+i+2), *(Y+i+1), *(Y+i+2));
         double ac = distance(*(X+i), *(X+i+2), *(Y+i), *(Y+i+2));

@@ -98,6 +98,60 @@ static char * test_lic0_invalid(){
 }
 
 /*
+*  A test where check_lic_1 should return true
+* @return 0 if the test passes, an error message otherwise
+*/
+static char * test_lic1_positive(){
+    NUMPOINTS = 10;
+    PARAMETERS.RADIUS1 = 2;
+    double local_X[5];
+    X = local_X;
+    double local_Y[5];
+    Y = local_Y;
+    X[0]=1; X[1]=2; X[2]=3; X[3]=12; X[4]=17;
+    Y[0]=1; Y[1]=2; Y[2]=3; Y[3]=12; Y[4]=22;
+
+    mu_assert("The positive test failed!", check_lic_1() == true);
+    return 0;
+}
+
+/*
+*  A test where check_lic_1 should return false
+* @return 0 if the test passes, an error message otherwise
+*/
+static char * test_lic1_negative(){
+    NUMPOINTS = 5;
+    PARAMETERS.RADIUS1 = 10;
+    double local_X[5];
+    X = local_X;
+    double local_Y[5];
+    Y = local_Y;
+    X[0]=1; X[1]=2; X[2]=3; X[3]=4; X[4]=5;
+    Y[0]=1; Y[1]=2; Y[2]=3; Y[3]=4; Y[4]=6;
+
+    mu_assert("The negative test failed!", check_lic_1() == false);
+    return 0;
+}
+
+/*
+*  A test where check_lic_1 should return false with an invalid input
+* @return 0 if the test passes, an error message otherwise
+*/
+static char * test_lic1_invalid(){
+    NUMPOINTS = 5;
+    PARAMETERS.RADIUS1 = -1;
+    double local_X[5];
+    X = local_X;
+    double local_Y[5];
+    Y = local_Y;
+    X[0]=1; X[1]=2; X[2]=3; X[3]=4; X[4]=5;
+    Y[0]=1; Y[1]=2; Y[2]=3; Y[3]=4; Y[4]=6;
+    
+    mu_assert("The invalid test failed!", check_lic_1() == false);
+    return 0;
+}
+
+/*
 *  A test where check_lic_4 should return true
 * @return 0 if the test passes, an error message otherwise
 */

@@ -571,6 +571,68 @@ static char * test_lic12_invalid(void){
     return 0;
 }
 
+/*
+*  A test where check_lic_14 should return true
+*  Makes triangle out of points (0,0), (2,0) and (1,-2) which has area of 2.
+*  That is larger than AREA1 = 1.5 and smaller than AREA2 = 2.1
+* @return 0 if the test passes, an error message otherwise
+*/
+static char * test_lic14_positive(){
+    NUMPOINTS = 5;
+    PARAMETERS.EPTS = 1;
+    PARAMETERS.FPTS = 1;
+    PARAMETERS.AREA1 = 1.5;
+    PARAMETERS.AREA2 = 2.1;
+    double local_X[5] = {0,2,2,3,1};
+    X = local_X;
+    double local_Y[5] = {0,2,0,0,-2};
+    Y = local_Y;
+
+    mu_assert("The positive test failed for lic14!", check_lic_14() == true);
+    return 0;
+}
+
+/*
+*  A test where check_lic_14 should return false
+*  Makes triangle out of points (-2,-1), (1,2) and (4,-1) which has area of 9.
+*  That is larger than AREA1 = 8, but not smaller than AREA2 = 2.1 and is thus false
+* @return 0 if the test passes, an error message otherwise
+*/
+static char * test_lic14_negative(){
+    NUMPOINTS = 5;
+    PARAMETERS.EPTS = 1;
+    PARAMETERS.FPTS = 1;
+    PARAMETERS.AREA1 = 8;
+    PARAMETERS.AREA2 = 2.1;
+    double local_X[5] = {-2,2,1,3,4};
+    X = local_X;
+    double local_Y[5] = {-1,2,2,0,-1};
+    Y = local_Y;
+
+    mu_assert("The negative test failed for lic14!", check_lic_14() == false);
+    return 0;
+}
+
+/*
+*  A test where check_lic_14 should return false with an invalid input
+*  Invalid because E_PTS = -10 (< 0)
+* @return 0 if the test passes, an error message otherwise
+*/
+static char * test_lic14_invalid(){
+    NUMPOINTS = 6;
+    PARAMETERS.EPTS = -10;
+    PARAMETERS.FPTS = 3;
+    PARAMETERS.AREA1 = 1.9;
+    PARAMETERS.AREA2 = 1.9;
+    double local_X[8] = {1,2,2,3,4,5,10,2};
+    X = local_X;
+    double local_Y[8] = {0,2,1,0,8,1.4,1.3,2};
+    Y = local_Y;
+
+    mu_assert("The invalid test failed for lic14!", check_lic_14() == false);
+    return 0;
+}
+
 /* This functions runs all the tests currently prepared for this revision.
 *  Any new tests that are implemented should be added to this function as well.
 *
@@ -603,6 +665,9 @@ static char * all_tests() {
     mu_run_test(test_lic12_negative);
     mu_run_test(test_lic12_invalid);
     mu_run_test(test_lic12_positive);
+    mu_run_test(test_lic14_negative);
+    mu_run_test(test_lic14_positive);
+    mu_run_test(test_lic14_invalid);
     return 0;
 }
 
@@ -713,6 +778,18 @@ static char * lic12_tests(void){
     mu_run_test(test_lic12_negative);
     mu_run_test(test_lic12_positive);
     mu_run_test(test_lic12_invalid);
+
+    return 0;
+}
+
+/*
+*  Runs all of the tests of lic14 until an error is encountered or all the tests are passed.
+*  @returns 0 if all the tests pass, the error message of the first test that fails otherwise.
+*/
+static char * lic14_tests(void){
+    mu_run_test(test_lic14_negative);
+    mu_run_test(test_lic14_positive);
+    mu_run_test(test_lic14_invalid);
 
     return 0;
 }

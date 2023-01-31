@@ -1,7 +1,6 @@
 #include "decide.h"
 #include <stdbool.h>
 
-const int LIC_COUNT = 15;
 int FUV_initialized = false;
 
 // Utility function to dynamicall allocate space for FUV

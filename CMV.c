@@ -14,12 +14,9 @@ boolean check_lic_9(void);
 boolean check_lic_10(void);
 boolean check_lic_11(void);
 boolean check_lic_12(void);
-boolean check_lic_13(void);
+//boolean check_lic_13(void);
 boolean check_lic_14(void);
 
-
-
-const int LIC_COUNT = 15;
 int CMV_initialized = false;
 
 // Utility function allocate space for CMV
@@ -49,7 +46,7 @@ void CMV_fill(void){
     CMV[10] = check_lic_10();
     CMV[11] = check_lic_11();
     CMV[12] = check_lic_12();
-    CMV[13] = check_lic_13();
+    //CMV[13] = check_lic_13();
     CMV[14] = check_lic_14();
 }
 

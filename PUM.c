@@ -3,7 +3,6 @@
 #include <stdlib.h>
 
 int PUM_initialized = false;
-const int LIC_COUNT = 15;
 
 // Utility function to dynamically allocate space for the PUM
 void init_PUM(void){

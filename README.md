@@ -15,4 +15,11 @@ The program is fully written in the C language. It has unit tests (with positive
 
 ### Contributions
 
+Yagiz: I have worked on the following parts in this project:
++ Implemented and wrote the documentation for LIC2, LIC7, LIC9, LIC11 and LIC13 calculations
++ Established the main testing framework
++ Created the tests (positive, negative and invalid) for LIC0, LIC7, LIC9, LIC11, LIC13 calculations
++ Implemented the intermediate variable calculations (CMV, FUV and PUM) as well as the main DECIDE() function
++ Contributed slightly to the makefile and code reviews
+
 ### Essence

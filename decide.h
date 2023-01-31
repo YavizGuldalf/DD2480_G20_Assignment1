@@ -1,8 +1,11 @@
 //This is version 4 of this file.
 #include <math.h>
+#include <stdlib.h>
 
 ////////////CONSTANT//////////
 static const double PI = 3.1415926535;
+
+static const int LIC_COUNT = 15;
 
 ////////////TYPEDECLARATIONS///////////
 typedef enum {NOTUSED=777, ORR, ANDD} CONNECTORS;

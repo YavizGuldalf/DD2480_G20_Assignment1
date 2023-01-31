@@ -97,7 +97,61 @@ static char * test_lic0_invalid(){
     return 0;
 }
 
+
+/*  A test where check_lic_1 should return true
+* @return 0 if the test passes, an error message otherwise
+*/
+static char * test_lic1_positive(){
+    NUMPOINTS = 10;
+    PARAMETERS.RADIUS1 = 2;
+    double local_X[5];
+    X = local_X;
+    double local_Y[5];
+    Y = local_Y;
+    X[0]=1; X[1]=2; X[2]=3; X[3]=12; X[4]=17;
+    Y[0]=1; Y[1]=2; Y[2]=3; Y[3]=12; Y[4]=22;
+
+    mu_assert("The positive test failed!", check_lic_1() == true);
+    return 0;
+}
+
+/*  A test where check_lic_3 should return true
+*  A test where check_lic_1 should return false
+* @return 0 if the test passes, an error message otherwise
+*/
+static char * test_lic1_negative(){
+    NUMPOINTS = 5;
+    PARAMETERS.RADIUS1 = 10;
+    double local_X[5];
+    X = local_X;
+    double local_Y[5];
+    Y = local_Y;
+    X[0]=1; X[1]=2; X[2]=3; X[3]=4; X[4]=5;
+    Y[0]=1; Y[1]=2; Y[2]=3; Y[3]=4; Y[4]=6;
+
+    mu_assert("The negative test failed!", check_lic_1() == false);
+    return 0;
+}
+
 /*
+*  A test where check_lic_1 should return false with an invalid input
+* @return 0 if the test passes, an error message otherwise
+*/
+static char * test_lic1_invalid(){
+    NUMPOINTS = 5;
+    PARAMETERS.RADIUS1 = -1;
+    double local_X[5];
+    X = local_X;
+    double local_Y[5];
+    Y = local_Y;
+    X[0]=1; X[1]=2; X[2]=3; X[3]=4; X[4]=5;
+    Y[0]=1; Y[1]=2; Y[2]=3; Y[3]=4; Y[4]=6;
+    
+    mu_assert("The invalid test failed!", check_lic_1() == false);
+    return 0;
+} 
+
+   /*
 *  A test where check_lic_2 should return true
 * @return 0 if the test passes, an error message otherwise
 */
@@ -177,7 +231,7 @@ static char * test_lic2_invalid(){
     Y = local_Y;
     X = NULL;
     Y = NULL;
-    mu_assert("The invalid test failed!", check_lic_0() == false);
+    mu_assert("The invalid test failed!", check_lic_2() == false);
 
     NUMPOINTS = 3;
     PARAMETERS.EPSILON = PI;
@@ -187,7 +241,7 @@ static char * test_lic2_invalid(){
     Y = local_Y1;
     X[0]=1; X[1]=2; X[2]=2;
     Y[0]=1; Y[1]=2; Y[2]=1;
-    mu_assert("The invalid test failed!", check_lic_0() == false);
+    mu_assert("The invalid test failed!", check_lic_2() == false);
 
     NUMPOINTS = 1;
     PARAMETERS.EPSILON = PI;
@@ -195,11 +249,13 @@ static char * test_lic2_invalid(){
     double local_Y2[NUMPOINTS];
     X = local_X2;
     Y = local_Y2;
-    mu_assert("The invalid test failed!", check_lic_0() == false);
+    mu_assert("The invalid test failed!", check_lic_2() == false);
     return 0;
 }
 
-/*  A test where check_lic_3 should return true
+
+/*
+*  A test where check_lic_3 should return true
 * @return 0 if the test passes, an error message otherwise
 */
 static char * test_lic3_positive(){
@@ -215,7 +271,9 @@ static char * test_lic3_positive(){
 }
 
 
-/*  A test where check_lic_3 should return false
+
+/*    
+*  A test where check_lic_3 should return false
 * @return 0 if the test passes, an error message otherwise
 */
 static char * test_lic3_negative(){
@@ -230,7 +288,9 @@ static char * test_lic3_negative(){
     return 0;
 }
 
-/*  A test where check_lic_3 should return false with an invalid input
+
+/*
+*  A test where check_lic_3 should return false with an invalid input
 * @return 0 if the test passes, an error message otherwise
 */
 static char * test_lic3_invalid(){
@@ -847,9 +907,18 @@ static char * all_tests() {
     mu_run_test(test_lic0_negative);
     mu_run_test(test_lic0_positive);
     mu_run_test(test_lic0_invalid);
+    mu_run_test(test_lic1_negative);
+    mu_run_test(test_lic1_positive);
+    mu_run_test(test_lic1_invalid);
     mu_run_test(test_lic2_negative);
     mu_run_test(test_lic2_positive);
     mu_run_test(test_lic2_invalid);
+    mu_run_test(test_lic3_negative);
+    mu_run_test(test_lic3_positive);
+    mu_run_test(test_lic3_invalid);
+    mu_run_test(test_lic4_negative);
+    mu_run_test(test_lic4_positive);
+    mu_run_test(test_lic4_invalid);
     mu_run_test(test_lic5_positive);
     mu_run_test(test_lic5_negative);
     mu_run_test(test_lic5_invalid);
@@ -911,6 +980,38 @@ static char * lic2_tests(){
     mu_run_test(test_lic2_negative);
     mu_run_test(test_lic2_positive);
     mu_run_test(test_lic2_invalid);
+    return 0;
+}
+/*
+*  Runs all of the tests of lic1 until an error is encountered or all the tests are passed.
+*  @returns 0 if all the tests pass, the error message of the first test that fails otherwise.
+*/
+static char * lic1_tests(){
+    mu_run_test(test_lic1_negative);
+    mu_run_test(test_lic1_positive);
+    mu_run_test(test_lic1_invalid);
+    return 0;
+}
+
+/*
+*  Runs all of the tests of lic3 until an error is encountered or all the tests are passed.
+*  @returns 0 if all the tests pass, the error message of the first test that fails otherwise.
+*/
+static char * lic3_tests(){
+    mu_run_test(test_lic3_negative);
+    mu_run_test(test_lic3_positive);
+    mu_run_test(test_lic3_invalid);
+    return 0;
+}
+
+/*
+*  Runs all of the tests of lic4 until an error is encountered or all the tests are passed.
+*  @returns 0 if all the tests pass, the error message of the first test that fails otherwise.
+*/
+static char * lic4_tests(){
+    mu_run_test(test_lic4_negative);
+    mu_run_test(test_lic4_positive);
+    mu_run_test(test_lic4_invalid);
     return 0;
 }
 

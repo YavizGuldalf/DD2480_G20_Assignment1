@@ -133,6 +133,7 @@ static char * test_lic2_positive(){
     Y[0]=1; Y[1]=2; Y[2]=1;
 
     mu_assert("The positive test failed!", check_lic_2() == true);
+    return 0;
 }
 
 /*
@@ -159,6 +160,7 @@ static char * test_lic2_negative(){
     X[0]=4; X[1]=4; X[2]=5;
     Y[0]=4; Y[1]=4; Y[2]=5;
     mu_assert("The negative test failed!", check_lic_2() == false);
+    return 0;
 
 }
 
@@ -167,7 +169,7 @@ static char * test_lic2_negative(){
 * @return 0 if the test passes, an error message otherwise
 */
 static char * test_lic2_invalid(){
-    NUMPOINTS = 4;
+    NUMPOINTS = 0;
     PARAMETERS.EPSILON = 0;
     double local_X[NUMPOINTS];
     double local_Y[NUMPOINTS];
@@ -187,13 +189,14 @@ static char * test_lic2_invalid(){
     Y[0]=1; Y[1]=2; Y[2]=1;
     mu_assert("The invalid test failed!", check_lic_0() == false);
 
-    NUMPOINTS = 0;
+    NUMPOINTS = 1;
     PARAMETERS.EPSILON = PI;
     double local_X2[NUMPOINTS];
     double local_Y2[NUMPOINTS];
     X = local_X2;
     Y = local_Y2;
     mu_assert("The invalid test failed!", check_lic_0() == false);
+    return 0;
 }
 
 /*  A test where check_lic_3 should return true

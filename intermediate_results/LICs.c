@@ -35,19 +35,27 @@ boolean check_lic_0(void){
     return false;
 }
 
+//Gives the distance between two points using pythagoras theorem
 double distance (double x1, double x2, double y1, double y2) {
     return sqrt(pow(x2-x1, 2) + pow(y2-y1, 2));
 }
 
-//LIC 1
+/*
+* There exists at least one set of three consecutive data points that 
+* cannot all be contained within or on a circle of radius RADIUS1.
+* (0 ≤ RADIUS1)
+*/
 boolean check_lic_1 () {
     if(PARAMETERS.RADIUS1 < 0)
         return false;
 
     for(int i = 0; i < NUMPOINTS; i++) {
+        //Gives the center coordinates of the three points
         double centerX = (*(X+i)+*(X+i+1)+*(X+i+2))/3;
         double centerY = (*(Y+i)+*(Y+i+1)+*(Y+i+2))/3;
 
+        //Checks the distance from the center point to the first point
+        //Which gives the radious of a circle just big enough for all points
         double r = distance(*(X+i), centerX, *(Y+i), centerY);
 
         if(r > PARAMETERS.RADIUS1)
@@ -100,15 +108,22 @@ boolean check_lic_2(void){
     return false;
 }
 
+//Gives the are of a triangle based on the lenght of each side
+//Using the Heron's Formula (https://www.cuemath.com/measurement/area-of-triangle/)
 double triangle_area (double a, double b, double c) {
     double s = (a+b+c)/2;
 
     return sqrt(s*((s-a)*(s-b)*(s-c)));
 }
 
-//LIC 3
+/*
+* There exists at least one set of three consecutive data points that 
+* are the vertices of a triangle with area greater than AREA1.
+* (0 ≤ AREA1)
+*/
 boolean check_lic_3 () {
     for(int i = 0; i < NUMPOINTS-2; i++) {
+        //Get the length of all three lines
         double ab = distance(*(X+i), *(X+i+1), *(Y+i), *(Y+i+1));
         double bc = distance(*(X+i+1), *(X+i+2), *(Y+i+1), *(Y+i+2));
         double ac = distance(*(X+i), *(X+i+2), *(Y+i), *(Y+i+2));
@@ -116,6 +131,7 @@ boolean check_lic_3 () {
         if(ab == 0 || ac == 0 || bc == 0)
             continue;
 
+        //Calculate the are of the triangle
         double area = triangle_area(ab,ac,bc);
 
         if(area > PARAMETERS.AREA1)
@@ -125,15 +141,26 @@ boolean check_lic_3 () {
     return 0;
 }
 
-//LIC 4
+/*
+* There exists at least one set of QPTS consecutive data points that lie in more 
+* than QUADS quadrants. Where there is ambiguity as to which quadrant contains a 
+* given point, priority of decision will be by quadrant number, i.e., I, II, III, IV.
+* For example, the data point (0,0) is in quadrant I, the point (-l,0) is in quadrant II, 
+* the point (0,-l) is in quadrant III, the point(0,1) is in quadrant I and the point (1,0) 
+* is in quadrant I.
+* (2 ≤ QPTS ≤ NUMPOINTS),
+* (1 ≤ QUADS ≤ 3)
+*/
 boolean check_lic_4 (void) {
     if(PARAMETERS.QPTS < 2 || PARAMETERS.QPTS > NUMPOINTS || 
     PARAMETERS.QUADS < 1 || PARAMETERS.QUADS > 3)
         return false;
 
+    //Declare the quadrants
     boolean quad_1, quad_2, quad_3, quad_4;
 
     for(int i = 0; i < NUMPOINTS - PARAMETERS.QPTS; i++) {
+        //Set quadrants to 0 as we look through a new set of consecutive points
         quad_1 = 0; quad_2 = 0; quad_3 = 0; quad_4 = 0;
 
         for(int j = 0; j < PARAMETERS.QPTS; j++) {
@@ -285,7 +312,14 @@ double largest_3 (double a, double b, double c) {
         return c;
 }
 
-//LIC 8
+/*
+* There exists at least one set of three data points separated by exactly APTS
+* and BPTS consecutive intervening points, respectively, that cannot be contained 
+* within or on a circle of radius RADIUS1. 
+* The condition is not met when NUMPOINTS < 5.
+* 1 ≤ APTS, 1 ≤ BPTS 
+* APTS + BPTS ≤ (NUMPOINTS − 3)
+*/
 boolean check_lic_8(void){
     if(PARAMETERS.APTS < 1 || PARAMETERS.BPTS < 1 ||
     PARAMETERS.APTS + PARAMETERS.BPTS > NUMPOINTS - 3)
@@ -564,7 +598,16 @@ boolean check_lic_13(void){
     return cond1 && cond2;
 }
 
-//LIC 12
+/*
+* There exists at least one set of two data points, separated by exactly KPTS
+* consecutive intervening points, which are a distance greater than the length,
+* LENGTH1, apart. In addition, there exists at least one set of two data points 
+* (which can be the same or different fromthe two data points just mentioned), 
+* separated by exactly KPTS consecutive intervening points, that are a distance 
+* less than the length, LENGTH2, apart. Both parts must be true for the LIC to be true. 
+* The condition is not met when NUMPOINTS < 3.
+* 0 ≤ LENGTH2
+*/
 boolean check_lic_12(void){
     if(NUMPOINTS < 3 || PARAMETERS.LENGTH2 < 0)
         return false;

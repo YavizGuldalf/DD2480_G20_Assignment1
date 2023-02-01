@@ -15,6 +15,35 @@ The program is fully written in the C language. It has unit tests (with positive
 
 ### Contributions
 
+Yagiz: I have worked on the following parts in this project:
++ Implemented and wrote the documentation for LIC2, LIC7, LIC9, LIC11 and LIC13 calculations
++ Established the main testing framework
++ Created the tests (positive, negative and invalid) for LIC0, LIC7, LIC9, LIC11, LIC13 calculations
++ Implemented the intermediate variable calculations (CMV, FUV and PUM) as well as the main DECIDE() function
++ Contributed slightly to the makefile and code reviews
+
+Pontus: My contributions are the following:
+* Implemented the checks for LIC0, LIC5, LIC6, LIC10, LIC14
+* Implemented the tests (positive, negative and invalid) for LIC5, LIC6, LIC10 and LIC14
+* Added documentation to tests, LIC checks and other help functions
+* General bug fixing
+* Structured the README file, and wrote the 'About' section and the credits section
+* Contributed to creating issues, reviewing pull requests and discussing implementations in the Github repo
+
+Marcus: My contributions are the following:
+* Implemented the checks for LIC1, LIC3, LIC4, LIC8, LIC12
+* Implemented the tests (positive, negative and invalid) for LIC1, LIC3, LIC4, LIC8 and LIC12
+* Implemented the decide.h file from APENDIX B
+* General bug fixing
+* Contributed to creating issues, reviewing pull requests and discussing implementations in the Github repo
+
+Ronan: My contributions are the following:
+* Implemented the tests for LIC2 (positive, negative and invalid)
+* Implemented the makefile
+* Restructured the directory of the project
+* General bug fixing
+* Contributed to creating issues, reviewing pull requests and discussing implementations in the Github repo
+
 ### Essence
 
 Assessing our way of working, we can semi-confidently say that our way of working is currently at the state of being "In Place", though the transition to this state is very recent. The whole team is using the same tools and practices to do their work, and every team member has access to these tools. The whole team is involved in the changes to be made to the way-of-working, although not to the same degree. We have been able to come so far in our way of working mostly thanks to the effort we spent on communicating and establishing a common ground. If we had not spent as much time on this step, there could be much more incoherency in our way of working. In order to move forward, our team needs to naturally apply our way of working to problems of different kinds in different contexts. We also need the evaluate our way of working in a detailed and continous manner, in order to assess its effectiveness in supporting our way of working.

@@ -55,6 +55,7 @@ Ronan: My contributions are the following:
 * Implemented the makefile
 * Restructured the directory of the project
 * General bug fixing
+* Test the entire program
 * Contributed to creating issues, reviewing pull requests and discussing implementations in the Github repo
 
 ### Essence

@@ -4,6 +4,9 @@
 
 double distance_by_index(int, int);
 double distance_to_line(double,double,double,double,double,double);
+double largest_3(double,double,double);
+double slope_by_index(int,int);
+double angle_by_index(int,int,int);
 
 /*
 * Checks the condition for LIC 0, which is if two consecutive data points
@@ -49,17 +52,52 @@ boolean check_lic_1 () {
     if(PARAMETERS.RADIUS1 < 0)
         return false;
 
-    for(int i = 0; i < NUMPOINTS; i++) {
-        //Gives the center coordinates of the three points
-        double centerX = (*(X+i)+*(X+i+1)+*(X+i+2))/3;
-        double centerY = (*(Y+i)+*(Y+i+1)+*(Y+i+2))/3;
+    for(int i=0; i < NUMPOINTS - 2; i++){
+        int j = i + 1;
+        int k = j + 2;
 
-        //Checks the distance from the center point to the first point
-        //Which gives the radious of a circle just big enough for all points
-        double r = distance(*(X+i), centerX, *(Y+i), centerY);
+        double dist1 = distance_by_index(i, j);
+        double dist2 = distance_by_index(j, k);
+        double dist3 = distance_by_index(i, k);
+        double slope1 = slope_by_index(i,j);
+        double slope2 = slope_by_index(j,k);
+        double slope3 = slope_by_index(i,k);
+        double angle1 = angle_by_index(i,j,k);
+        double angle2 = angle_by_index(i,k,j);
+        double angle3 = angle_by_index(k,i,j);
 
-        if(r > PARAMETERS.RADIUS1)
+        double largest_dist = largest_3(dist1, dist2, dist3);
+        double largest_angle = largest_3(angle1, angle2, angle3);
+
+        // To find the smallest circle that can contain these 3 points, we will use the method proposed at
+        // https://math.stackexchange.com/a/2234810, with a few more checks in case the three points don't 
+        // form a triangle.
+
+        int R;
+        // If two points are the same, or if the three points are on the same line (they don't form a triangle),
+        // or if they form an obtuse triangle,
+        // checking that the largest distance is less than RADIUS * 2 is sufficient.
+        if((X[i] == X[j] && Y[i] == Y[j]) ||
+           (X[i] == X[k] && Y[i] == Y[k]) ||
+           (X[j] == X[k] && Y[j] == Y[k]) ||
+           DOUBLECOMPARE(slope1, slope2) == EQ || 
+           DOUBLECOMPARE(slope1, slope3) == EQ ||
+           DOUBLECOMPARE(slope2, slope3) == EQ ||
+           DOUBLECOMPARE(largest_angle, PI/2) == GT){
+
+            R = largest_dist / 2;
+        } else{
+            // If the three points instead form an acute triangle, the radius of the circumscribed circle
+            // is the smallest radius these 3 points can fit in.
+
+            int s = (dist1 + dist2 + dist3) / 2;
+            R = (dist1*dist2*dist3) / (4*sqrt(s * (s-dist1) * (s - dist2) * (s - dist3)));
+
+        }
+        
+        if(DOUBLECOMPARE(R, PARAMETERS.RADIUS1) == GT){
             return true;
+        }
     }
 
     return false;

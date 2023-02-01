@@ -44,25 +44,25 @@ static char * test_program_positive(){
     // Condition 13: False, see condition 8
     // Condition 14: False, see condition 10gin: (0, 0), (1, 0), (-1, 0), (0, 1), (0, -1).
     NUMPOINTS = 5;
-    LENGTH1 = 0.99;   
-    LENGTH2 = 2;    
-    RADIUS1 = 0.99;    
-    RADIUS2 = 0.01;    
-    EPSILON⁼ 0;     
-    AREA1 = 0.49;    
-    AREA2 = 0;       
-    QUADS = 2;     
-    DIST = 0.99;   
-    A_PTS = 1;      
-    B_PTS = 1;       
-    C_PTS = 1;       
-    D_PTS = 1;      
-    E_PTS = 1;      
-    F_PTS = 1;       
-    G_PTS = 1;       
-    K_PTS = 1;       
-    N_PTS = 5;       
-    Q_PTS = 5;        
+    PARAMETERS.LENGTH1 = 0.99;   
+    PARAMETERS.LENGTH2 = 2;    
+    PARAMETERS.RADIUS1 = 0.99;    
+    PARAMETERS.RADIUS2 = 0.01;    
+    PARAMETERS.EPSILON = 0;     
+    PARAMETERS.AREA1 = 0.49;    
+    PARAMETERS.AREA2 = 0;       
+    PARAMETERS.QUADS = 2;     
+    PARAMETERS.DIST = 0.99;   
+    PARAMETERS.APTS = 1;      
+    PARAMETERS.BPTS = 1;       
+    PARAMETERS.CPTS = 1;       
+    PARAMETERS.DPTS = 1;      
+    PARAMETERS.EPTS = 1;      
+    PARAMETERS.FPTS = 1;       
+    PARAMETERS.GPTS = 1;       
+    PARAMETERS.KPTS = 1;       
+    PARAMETERS.NPTS = 5;       
+    PARAMETERS.QPTS = 5;        
 
     double local_X[5];
     double local_Y[5];
@@ -70,8 +70,11 @@ static char * test_program_positive(){
     Y = local_Y;
     X[0] = 0; X[1] = 1; X[2] = -1; X[3] = 0; X[4] = 0;
     Y[0] = 0; Y[1] = 0; Y[2] = 0; Y[3] = 1; Y[4] = -1;
+    
 
-    LCM = {{ANDD, ANDD, ANDD, ANDD, ANDD, ANDD, ANDD, ANDD, NOTUSED, ANDD, NOTUSED, ANDD, ANDD, NOTUSED, NOTUSED},
+
+    CMATRIX local_LCM[15][15] = 
+            {{ANDD, ANDD, ANDD, ANDD, ANDD, ANDD, ANDD, ANDD, NOTUSED, ANDD, NOTUSED, ANDD, ANDD, NOTUSED, NOTUSED},
                 {ANDD, ANDD, ANDD, ANDD, ANDD, ANDD, ANDD, ANDD, NOTUSED, ANDD, NOTUSED, ANDD, ANDD, NOTUSED, NOTUSED},
                 {ANDD, ANDD, ANDD, ANDD, ANDD, ANDD, ANDD, ANDD, NOTUSED, ANDD, NOTUSED, ANDD, ANDD, NOTUSED, NOTUSED},
                 {ANDD, ANDD, ANDD, ANDD, ANDD, ANDD, ANDD, ANDD, NOTUSED, ANDD, NOTUSED, ANDD, ANDD, NOTUSED, NOTUSED},
@@ -86,10 +89,13 @@ static char * test_program_positive(){
                 {ANDD, ANDD, ANDD, ANDD, ANDD, ANDD, ANDD, ANDD, NOTUSED, ANDD, NOTUSED, ANDD, ANDD, NOTUSED, NOTUSED},
                 {NOTUSED, NOTUSED, NOTUSED, NOTUSED, NOTUSED, NOTUSED, NOTUSED, NOTUSED, NOTUSED, NOTUSED, NOTUSED, NOTUSED, NOTUSED, ANDD, NOTUSED},
                 {NOTUSED, NOTUSED, NOTUSED, NOTUSED, NOTUSED, NOTUSED, NOTUSED, NOTUSED, NOTUSED, NOTUSED, NOTUSED, NOTUSED, NOTUSED, NOTUSED, ANDD}};
+    LCM = local_LCM;
 
-    PUV = {true, true, true, true, true, true, true, true, true, true, true, true, true, true, true };
 
-    launch_result();
+    VECTOR local_PUV = {true, true, true, true, true, true, true, true, true, true, true, true, true, true, true };
+    PUV = local_PUV;
+    
+    DECIDE();
     mu_assert("The positive test failed", LAUNCH == true);
     return 0;
 }

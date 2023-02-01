@@ -16,7 +16,7 @@ The program can be built by simply running the command
 ```
 make
 ```
-Running this command will create the executable files, one is named DECIDE and the other is named lic_tests.
+Running this command will create the executable files, one is named DECIDE another is named lic_tests and another is named test_program.
 These two executables can be run by using the commands
 ```
 ./DECIDE
@@ -24,6 +24,10 @@ These two executables can be run by using the commands
 or 
 ```
 ./lic_tests
+```
+or 
+```
+./test_program
 ```
 
 ### Contributions

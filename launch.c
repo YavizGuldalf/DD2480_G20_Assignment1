@@ -89,6 +89,12 @@ int main(){
 * can be found on the link in the readme.
 */
 void DECIDE(void){
+
+    if(NUMPOINTS < 2 || NUMPOINTS > 100){
+        LAUNCH = false;
+        return;
+    }
+
     CMV_fill();
     fill_PUM();
     fill_FUV();

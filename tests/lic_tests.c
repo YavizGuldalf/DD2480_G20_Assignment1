@@ -102,7 +102,7 @@ static char * test_lic0_invalid(){
 * @return 0 if the test passes, an error message otherwise
 */
 static char * test_lic1_positive(){
-    NUMPOINTS = 10;
+    NUMPOINTS = 5;
     PARAMETERS.RADIUS1 = 2;
     double local_X[5];
     X = local_X;
@@ -115,7 +115,7 @@ static char * test_lic1_positive(){
     return 0;
 }
 
-/*  A test where check_lic_3 should return true
+/* 
 *  A test where check_lic_1 should return false
 * @return 0 if the test passes, an error message otherwise
 */
@@ -127,7 +127,7 @@ static char * test_lic1_negative(){
     double local_Y[5];
     Y = local_Y;
     X[0]=1; X[1]=2; X[2]=3; X[3]=4; X[4]=5;
-    Y[0]=1; Y[1]=2; Y[2]=3; Y[3]=4; Y[4]=6;
+    Y[0]=1; Y[1]=2; Y[2]=3; Y[3]=4; Y[4]=5;
 
     mu_assert("The negative test for LIC 1 failed!", check_lic_1() == false);
     return 0;

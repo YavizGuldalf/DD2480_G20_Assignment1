@@ -9,8 +9,7 @@ void CMV_free();
 void free_PUM();
 void free_FUV();
 
-// Makes the final decision of launching or not launching
-int main(){
+void launch_result(){
     CMV_fill();
     fill_PUM();
     fill_FUV();
@@ -23,7 +22,11 @@ int main(){
     CMV_free();
     free_PUM();
     free_FUV();
+}
 
+// Makes the final decision of launching or not launching
+int main(){
+    launch_result();
     if(LAUNCH == true){
         printf("LAUNCH\n");
     } else{

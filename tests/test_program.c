@@ -27,6 +27,70 @@ int tests_run = 0;
 * @return 0 if the test passes, an error message otherwise
 */
 static char * test_program_positive(){
+    // circle and one point in the ori       
+    // Condition 0: True because LENGTH1 = 0.99
+    // Condition 1: True because RADIUS1 = 1.01
+    // Condition 2: True because EPSILON = PI/2 - 0.01
+    // Condition 3: True because AREA1 = 0.49
+    // Condition 4: True because Q_PTS = 5 and QUADS = 2
+    // Condition 5: True because (0, 0), (1, 0) consecutive points exist
+    // Condition 6: True because DIST = 0.99 and N_PTS = 5
+    // Condition 7: True because LENGTH1 = 0.99 and K_PTS = 1
+    // Condition 8: False because RADIUS1 = 1.01 and A_PTS = B_PTS = 1
+    // Condition 9: True because EPSILON = PI/2 -0.01 and C_PTS = D_PTS = 1
+    // Condition 10: True because AREA1 = 0.49 and E_PTS = F_PTS = 1
+    // Condition 11: True because G_PTS = 1
+    // Condition 12: True because LENGTH1 = 0.99 and LENGTH2 = 2 and K_PTS = 1
+    // Condition 13: False, see condition 8
+    // Condition 14: False, see condition 10gin: (0, 0), (1, 0), (-1, 0), (0, 1), (0, -1).
+    NUMPOINTS = 5;
+    LENGTH1 = 0.99;   
+    LENGTH2 = 2;    
+    RADIUS1 = 0.99;    
+    RADIUS2 = 0.01;    
+    EPSILON⁼ 0;     
+    AREA1 = 0.49;    
+    AREA2 = 0;       
+    QUADS = 2;     
+    DIST = 0.99;   
+    A_PTS = 1;      
+    B_PTS = 1;       
+    C_PTS = 1;       
+    D_PTS = 1;      
+    E_PTS = 1;      
+    F_PTS = 1;       
+    G_PTS = 1;       
+    K_PTS = 1;       
+    N_PTS = 5;       
+    Q_PTS = 5;        
+
+    double local_X[5];
+    double local_Y[5];
+    X = local_X;
+    Y = local_Y;
+    X[0] = 0; X[1] = 1; X[2] = -1; X[3] = 0; X[4] = 0;
+    Y[0] = 0; Y[1] = 0; Y[2] = 0; Y[3] = 1; Y[4] = -1;
+
+    LCM = {{ANDD, ANDD, ANDD, ANDD, ANDD, ANDD, ANDD, ANDD, NOTUSED, ANDD, NOTUSED, ANDD, ANDD, NOTUSED, NOTUSED},
+                {ANDD, ANDD, ANDD, ANDD, ANDD, ANDD, ANDD, ANDD, NOTUSED, ANDD, NOTUSED, ANDD, ANDD, NOTUSED, NOTUSED},
+                {ANDD, ANDD, ANDD, ANDD, ANDD, ANDD, ANDD, ANDD, NOTUSED, ANDD, NOTUSED, ANDD, ANDD, NOTUSED, NOTUSED},
+                {ANDD, ANDD, ANDD, ANDD, ANDD, ANDD, ANDD, ANDD, NOTUSED, ANDD, NOTUSED, ANDD, ANDD, NOTUSED, NOTUSED},
+                {ANDD, ANDD, ANDD, ANDD, ANDD, ANDD, ANDD, ANDD, NOTUSED, ANDD, NOTUSED, ANDD, ANDD, NOTUSED, NOTUSED},
+                {ANDD, ANDD, ANDD, ANDD, ANDD, ANDD, ANDD, ANDD, NOTUSED, ANDD, NOTUSED, ANDD, ANDD, NOTUSED, NOTUSED},
+                {ANDD, ANDD, ANDD, ANDD, ANDD, ANDD, ANDD, ANDD, NOTUSED, ANDD, NOTUSED, ANDD, ANDD, NOTUSED, NOTUSED},
+                {ANDD, ANDD, ANDD, ANDD, ANDD, ANDD, ANDD, ANDD, NOTUSED, ANDD, NOTUSED, ANDD, ANDD, NOTUSED, NOTUSED},
+                {NOTUSED, NOTUSED, NOTUSED, NOTUSED, NOTUSED, NOTUSED, NOTUSED, NOTUSED, ANDD, NOTUSED, NOTUSED, NOTUSED, NOTUSED, NOTUSED, NOTUSED},
+                {ANDD, ANDD, ANDD, ANDD, ANDD, ANDD, ANDD, ANDD, NOTUSED, ANDD, NOTUSED, ANDD, ANDD, NOTUSED, NOTUSED},
+                {NOTUSED, NOTUSED, NOTUSED, NOTUSED, NOTUSED, NOTUSED, NOTUSED, NOTUSED, NOTUSED, NOTUSED, ANDD, NOTUSED, NOTUSED, NOTUSED, NOTUSED},
+                {ANDD, ANDD, ANDD, ANDD, ANDD, ANDD, ANDD, ANDD, NOTUSED, ANDD, NOTUSED, ANDD, ANDD, NOTUSED, NOTUSED},
+                {ANDD, ANDD, ANDD, ANDD, ANDD, ANDD, ANDD, ANDD, NOTUSED, ANDD, NOTUSED, ANDD, ANDD, NOTUSED, NOTUSED},
+                {NOTUSED, NOTUSED, NOTUSED, NOTUSED, NOTUSED, NOTUSED, NOTUSED, NOTUSED, NOTUSED, NOTUSED, NOTUSED, NOTUSED, NOTUSED, ANDD, NOTUSED},
+                {NOTUSED, NOTUSED, NOTUSED, NOTUSED, NOTUSED, NOTUSED, NOTUSED, NOTUSED, NOTUSED, NOTUSED, NOTUSED, NOTUSED, NOTUSED, NOTUSED, ANDD}};
+
+    PUV = {true, true, true, true, true, true, true, true, true, true, true, true, true, true, true };
+
+    launch_result();
+    mu_assert("The positive test failed", LAUNCH == true);
     return 0;
 }
 
@@ -35,6 +99,8 @@ static char * test_program_positive(){
 * @return 0 if the test passes, an error message otherwise
 */
 static char * test_program_negative(){
+
+    mu_assert("The negative test failed", LAUNCH == false);
     return 0;
 }
 
@@ -43,6 +109,8 @@ static char * test_program_negative(){
 * @return 0 if the test passes, an error message otherwise
 */
 static char * test_program_invalid(){
+
+    mu_assert("The invalid test failed", LAUNCH == false);
     return 0;
 }
 

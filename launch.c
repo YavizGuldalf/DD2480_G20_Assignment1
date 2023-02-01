@@ -9,6 +9,7 @@ void CMV_free();
 void free_PUM();
 void free_FUV();
 
+
 int main(){
     NUMPOINTS = 10;
     double X_local[] = {1,0,3,-4,-2,2,14,5,9,200};

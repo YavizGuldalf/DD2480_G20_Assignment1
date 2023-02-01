@@ -37,6 +37,13 @@ Marcus: My contributions are the following:
 * General bug fixing
 * Contributed to creating issues, reviewing pull requests and discussing implementations in the Github repo
 
+Ronan: My contributions are the following:
+* Implemented the tests for LIC2 (positive, negative and invalid)
+* Implemented the makefile
+* Restructured the directory of the project
+* General bug fixing
+* Contributed to creating issues, reviewing pull requests and discussing implementations in the Github repo
+
 ### Essence
 
 Assessing our way of working, we can semi-confidently say that our way of working is currently at the state of being "In Place", though the transition to this state is very recent. The whole team is using the same tools and practices to do their work, and every team member has access to these tools. The whole team is involved in the changes to be made to the way-of-working, although not to the same degree. We have been able to come so far in our way of working mostly thanks to the effort we spent on communicating and establishing a common ground. If we had not spent as much time on this step, there could be much more incoherency in our way of working. In order to move forward, our team needs to naturally apply our way of working to problems of different kinds in different contexts. We also need the evaluate our way of working in a detailed and continous manner, in order to assess its effectiveness in supporting our way of working.

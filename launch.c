@@ -11,6 +11,16 @@ void free_FUV();
 
 // Makes the final decision of launching or not launching
 int main(){
+    DECIDE();
+
+    if(LAUNCH == true){
+        printf("LAUNCH\n");
+    } else{
+        printf("NO LAUNCH\n");
+    }
+}
+
+void DECIDE(void){
     CMV_fill();
     fill_PUM();
     fill_FUV();
@@ -23,10 +33,4 @@ int main(){
     CMV_free();
     free_PUM();
     free_FUV();
-
-    if(LAUNCH == true){
-        printf("LAUNCH\n");
-    } else{
-        printf("NO LAUNCH\n");
-    }
 }

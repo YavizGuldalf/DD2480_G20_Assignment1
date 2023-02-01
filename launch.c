@@ -84,28 +84,3 @@ int main(){
         printf("NO LAUNCH\n");
     }
 }
-/*
-* The main decision function of the program. It sets the LAUNCH variable to true or false. Rules for how the calculation is made
-* can be found on the link in the readme.
-*/
-void DECIDE(void){
-
-    if(NUMPOINTS < 2 || NUMPOINTS > 100){
-        LAUNCH = false;
-        return;
-    }
-
-    CMV_fill();
-    fill_PUM();
-    fill_FUV();
-    
-    LAUNCH = true;
-
-    for(int i=0; i<LIC_COUNT; i++){
-        LAUNCH = LAUNCH && FUV[i];
-    }
-    
-    CMV_free();
-    free_PUM();
-    free_FUV();
-}

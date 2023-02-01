@@ -73,7 +73,7 @@ static char * test_program_positive(){
     
 
 
-    CMATRIX local_LCM[15][15] = 
+    CONNECTORS local_LCM[15][15] = 
             {{ANDD, ANDD, ANDD, ANDD, ANDD, ANDD, ANDD, ANDD, NOTUSED, ANDD, NOTUSED, ANDD, ANDD, NOTUSED, NOTUSED},
                 {ANDD, ANDD, ANDD, ANDD, ANDD, ANDD, ANDD, ANDD, NOTUSED, ANDD, NOTUSED, ANDD, ANDD, NOTUSED, NOTUSED},
                 {ANDD, ANDD, ANDD, ANDD, ANDD, ANDD, ANDD, ANDD, NOTUSED, ANDD, NOTUSED, ANDD, ANDD, NOTUSED, NOTUSED},
@@ -89,10 +89,14 @@ static char * test_program_positive(){
                 {ANDD, ANDD, ANDD, ANDD, ANDD, ANDD, ANDD, ANDD, NOTUSED, ANDD, NOTUSED, ANDD, ANDD, NOTUSED, NOTUSED},
                 {NOTUSED, NOTUSED, NOTUSED, NOTUSED, NOTUSED, NOTUSED, NOTUSED, NOTUSED, NOTUSED, NOTUSED, NOTUSED, NOTUSED, NOTUSED, ANDD, NOTUSED},
                 {NOTUSED, NOTUSED, NOTUSED, NOTUSED, NOTUSED, NOTUSED, NOTUSED, NOTUSED, NOTUSED, NOTUSED, NOTUSED, NOTUSED, NOTUSED, NOTUSED, ANDD}};
-    LCM = local_LCM;
+    CONNECTORS* local_LCM_2[15];
+    for(int i=0; i<15; i++){
+        local_LCM_2[i] = local_LCM[i];
+    }
+    LCM = local_LCM_2;
 
 
-    VECTOR local_PUV = {true, true, true, true, true, true, true, true, true, true, true, true, true, true, true };
+    int local_PUV[] = {false, false, false, false, false, false, false, false, false, false, false, false, false, false, false };
     PUV = local_PUV;
 
     DECIDE();
@@ -135,7 +139,7 @@ static char * test_program_negative(){
     
 
 
-    CMATRIX local_LCM[15][15] = 
+    CONNECTORS local_LCM[15][15] = 
             {{ANDD, NOTUSED, NOTUSED, NOTUSED, NOTUSED, NOTUSED, NOTUSED, NOTUSED, NOTUSED, NOTUSED, NOTUSED, NOTUSED, NOTUSED, NOTUSED, NOTUSED},
                 {NOTUSED, ANDD, NOTUSED, NOTUSED, ANDD, NOTUSED, NOTUSED, NOTUSED, NOTUSED, NOTUSED, NOTUSED, NOTUSED, NOTUSED, NOTUSED, NOTUSED},
                 {NOTUSED, NOTUSED, ANDD, NOTUSED, NOTUSED, NOTUSED, NOTUSED, NOTUSED, NOTUSED, ANDD, NOTUSED, NOTUSED, ANDD, NOTUSED, NOTUSED},
@@ -152,10 +156,14 @@ static char * test_program_negative(){
                 {NOTUSED, NOTUSED, NOTUSED, NOTUSED, NOTUSED, NOTUSED, NOTUSED, NOTUSED, NOTUSED, NOTUSED, NOTUSED, NOTUSED, NOTUSED, ANDD, NOTUSED},
                 {NOTUSED, NOTUSED, NOTUSED, NOTUSED, NOTUSED, NOTUSED, NOTUSED, NOTUSED, NOTUSED, NOTUSED, NOTUSED, NOTUSED, NOTUSED, NOTUSED, ANDD}
             };
-    LCM = local_LCM;
+    CONNECTORS* local_LCM_2[15];
+    for(int i=0; i<15; i++){
+        local_LCM_2[i] = local_LCM[i];
+    }
+    LCM = local_LCM_2;
 
 
-    VECTOR local_PUV = {true, true, true, true, true, true, true, true, true, true, true, true, true, true, true };
+    int local_PUV[] = {true, true, true, true, true, true, true, true, true, true, true, true, true, true, true };
     PUV = local_PUV;
 
     DECIDE();
@@ -199,7 +207,7 @@ static char * test_program_invalid(){
     
 
 
-    CMATRIX local_LCM[15][15] = 
+    CONNECTORS local_LCM[15][15] = 
             {{ANDD, ANDD, ANDD, ANDD, ANDD, ANDD, ANDD, ANDD, NOTUSED, ANDD, NOTUSED, ANDD, ANDD, NOTUSED, NOTUSED},
                 {ANDD, ANDD, ANDD, ANDD, ANDD, ANDD, ANDD, ANDD, NOTUSED, ANDD, NOTUSED, ANDD, ANDD, NOTUSED, NOTUSED},
                 {ANDD, ANDD, ANDD, ANDD, ANDD, ANDD, ANDD, ANDD, NOTUSED, ANDD, NOTUSED, ANDD, ANDD, NOTUSED, NOTUSED},
@@ -215,10 +223,14 @@ static char * test_program_invalid(){
                 {ANDD, ANDD, ANDD, ANDD, ANDD, ANDD, ANDD, ANDD, NOTUSED, ANDD, NOTUSED, ANDD, ANDD, NOTUSED, NOTUSED},
                 {NOTUSED, NOTUSED, NOTUSED, NOTUSED, NOTUSED, NOTUSED, NOTUSED, NOTUSED, NOTUSED, NOTUSED, NOTUSED, NOTUSED, NOTUSED, ANDD, NOTUSED},
                 {NOTUSED, NOTUSED, NOTUSED, NOTUSED, NOTUSED, NOTUSED, NOTUSED, NOTUSED, NOTUSED, NOTUSED, NOTUSED, NOTUSED, NOTUSED, NOTUSED, ANDD}};
-    LCM = local_LCM;
+    CONNECTORS* local_LCM_2[15];
+    for(int i=0; i<15; i++){
+        local_LCM_2[i] = local_LCM[i];
+    }
+    LCM = local_LCM_2;
 
 
-    VECTOR local_PUV = {true, true, true, true, true, true, true, true, true, true, true, true, true, true, true };
+    int local_PUV[] = {true, true, true, true, true, true, true, true, true, true, true, true, true, true, true };
     PUV = local_PUV;
     mu_assert("The invalid test failed", LAUNCH == false);
     return 0;

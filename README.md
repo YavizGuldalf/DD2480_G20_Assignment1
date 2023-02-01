@@ -12,6 +12,19 @@ The program is fully written in the C language. It has unit tests (with positive
 
 ### Running the program
 
+The program can be built by simply running the command 
+```
+make
+```
+Running this command will create the executable files, one is named DECIDE and the other is named lic_tests.
+These two executables can be run by using the commands
+```
+./DECIDE
+```
+or 
+```
+./lic_tests
+```
 
 ### Contributions
 
